@@ -1,6 +1,6 @@
 import React from 'react'
 import 'react-bootstrap'
-import 'boostrap'
+//import 'boostrap'
 
 export default function Rating({value,text,color}) {
   return (
