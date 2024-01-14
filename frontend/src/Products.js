@@ -11,11 +11,11 @@ const products = [
         'rating': '4.5',
         'numReviews': '12',
     },
-
+    
     {
         "_id": "2",
         "name": "Sasuke Hoodie",
-        "image": "https://images.meesho.com/images/products/288079365/akecc_514.webp",
+        'image': 'https://images.meesho.com/images/products/288079363/akecc_512.webp',
         "description": "Inspired by Naruto's rival, Sasuke Uchiha",
         "brand": "Adidas",
         "category": "Hoodie",
@@ -27,7 +27,7 @@ const products = [
     {
         "_id": "3",
         "name": "Naruto Action Figure",
-        "image": "https://images.meesho.com/images/products/288079367/akecc_516.webp",
+        'image': 'https://images.meesho.com/images/products/288079363/akecc_512.webp',
         "description": "Collectible Naruto character figurine",
         "brand": "Funko",
         "category": "Collectibles",
@@ -39,7 +39,7 @@ const products = [
     {
         "_id": "4",
         "name": "Sharingan Eye Contacts",
-        "image": "https://images.meesho.com/images/products/288079369/akecc_518.webp",
+        'image': 'https://images.meesho.com/images/products/288079363/akecc_512.webp',
         "description": "Get the Sharingan look with these contact lenses",
         "brand": "LensCrafters",
         "category": "Accessories",
@@ -51,7 +51,7 @@ const products = [
     {
         "_id": "5",
         "name": "Hidden Leaf Village Cap",
-        "image": "https://images.meesho.com/images/products/288079371/akecc_520.webp",
+        'image': 'https://images.meesho.com/images/products/288079363/akecc_512.webp',
         "description": "Represent the Hidden Leaf Village with this stylish cap",
         "brand": "Nike",
         "category": "Headwear",
@@ -63,7 +63,7 @@ const products = [
     {
         "_id": "6",
         "name": "Akatsuki Poster Set",
-        "image": "https://images.meesho.com/images/products/288079373/akecc_522.webp",
+        'image': 'https://images.meesho.com/images/products/288079363/akecc_512.webp',
         "description": "Decorate your room with these iconic Akatsuki posters",
         "brand": "PosterPrints",
         "category": "Home Decor",
@@ -75,7 +75,7 @@ const products = [
     {
         "_id": "7",
         "name": "Chibi Naruto Plush Toy",
-        "image": "https://images.meesho.com/images/products/288079375/akecc_524.webp",
+        'image': 'https://images.meesho.com/images/products/288079363/akecc_512.webp',
         "description": "Cute and cuddly Chibi version of Naruto",
         "brand": "ToyJoy",
         "category": "Plush Toys",
@@ -87,7 +87,7 @@ const products = [
     {
         "_id": "8",
         "name": "Ramen Bowl Set",
-        "image": "https://images.meesho.com/images/products/288079377/akecc_526.webp",
+        'image': 'https://images.meesho.com/images/products/288079363/akecc_512.webp',
         "description": "Authentic ramen dining experience with this bowl set",
         "brand": "KitchenMaster",
         "category": "Kitchenware",
@@ -99,7 +99,7 @@ const products = [
     {
         "_id": "9",
         "name": "Itachi Uchiha Backpack",
-        "image": "https://images.meesho.com/images/products/288079379/akecc_528.webp",
+        'image': 'https://images.meesho.com/images/products/288079363/akecc_512.webp',
         "description": "Carry your essentials in style with this Itachi-themed backpack",
         "brand": "Puma",
         "category": "Backpacks",
@@ -111,7 +111,7 @@ const products = [
     {
         "_id": "10",
         "name": "Naruto Manga Collection",
-        "image": "https://images.meesho.com/images/products/288079381/akecc_530.webp",
+        'image': 'https://images.meesho.com/images/products/288079363/akecc_512.webp',
         "description": "Complete your Naruto collection with this set of manga volumes",
         "brand": "Shueisha",
         "category": "Books",
@@ -123,7 +123,7 @@ const products = [
     {
         "_id": "11",
         "name": "Minato Namikaze Keychain",
-        "image": "https://images.meesho.com/images/products/288079383/akecc_532.webp",
+        'image': 'https://images.meesho.com/images/products/288079363/akecc_512.webp',
         "description": "Show your love for the Fourth Hokage with this keychain",
         "brand": "KeyCraft",
         "category": "Accessories",

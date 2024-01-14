@@ -7,10 +7,11 @@ export default function Product({product}) {
     const StarColor = {
         Color:'red',
     }
+
   return (
-    <Card className='my-3 p-3 rounded' Style='margin:10px'>
+    <Card className='my-3 p-3 rounded' style={{margin:'10px'}}  >
         <Link to={`/Product/${product._id}`}>
-        <Card.Img src={product.image} alt={product.name} width={100}/>
+        <Card.Img src={product.image} alt={product.name} />
         </Link> 
 
         <Card.Body>
