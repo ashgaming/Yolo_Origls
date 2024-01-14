@@ -2,22 +2,21 @@ import React from 'react'
 import 'react-bootstrap'
 //import 'boostrap'
 
-export default function Rating({value,text,color}) {
+export default function Rating({value,text,clr}) {
   return (
     <div className='rating'>
+
         <span>
-            <i  style={color} className={
-                value >=1 ?
-                'fas fa-star'
-                : value >= 0.5
-                ?'fas fa-star-half-alt'
+            <i  style={clr} className={
+                value >=1 ? 'fas fa-star'
+                : value >= 0.5 ?'fas fa-star-half-alt'
                 :'far fa-star'
-            }>
-            </i>
-            <span>{value}</span>
+            }></i>
+           
+            <span>{value} {text}</span>
         </span>
         <span>
-            <i Style={color} className={
+            <i style={clr} className={
                 value>=2 ?
                 'fas fa-star'
                 : value >= 1.5
@@ -27,7 +26,7 @@ export default function Rating({value,text,color}) {
             </i>
         </span>
         <span>
-            <i Style={color} className={
+            <i style={clr} className={
                 value>=3 ?
                 'fas fa-star'
                 : value >= 2.5
@@ -37,7 +36,7 @@ export default function Rating({value,text,color}) {
             </i>
         </span>
         <span>
-            <i Style={color} className={
+            <i style={clr} className={
                 value>=4 ?
                 'fas fa-star'
                 : value >= 3.5
@@ -47,7 +46,7 @@ export default function Rating({value,text,color}) {
             </i>
         </span>
         <span>
-            <i Style={color} className={
+            <i style={clr} className={
                 value>=5 ?
                 'fas fa-star'
                 : value >= 4.5
@@ -55,7 +54,8 @@ export default function Rating({value,text,color}) {
                 :'far fa-star'
             }>
             </i>
-        </span>
+         </span>
+         
     </div>
   )
 }

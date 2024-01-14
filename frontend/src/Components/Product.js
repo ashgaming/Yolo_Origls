@@ -23,7 +23,7 @@ export default function Product({product}) {
 
             <Card.Text as='div'>
                 <div className='my-3'>
-                    <Rating color={StarColor} value={product.rating} text={product.numReviews}/>
+                    <Rating clr={StarColor} value={product.rating} text={product.numReviews}/>
                     {/*product.rating} from {product.numReviews} Reviews*/}
                 </div>
             </Card.Text>

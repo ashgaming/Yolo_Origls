@@ -20,7 +20,7 @@ export default function Headers() {
             <Nav.Link>Home</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer to='/about'> 
+            <LinkContainer to='/Cart'> 
             <Nav.Link>Cart</Nav.Link>
             </LinkContainer>
 

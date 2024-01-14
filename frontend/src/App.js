@@ -6,6 +6,7 @@ import HomeScreen from './screens/HomeScreen';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import ProductScreen from './screens/ProductScreen';
+import CartScreen from './screens/CartScreen';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -25,6 +26,7 @@ function App() {
         <Routes>
           <Route path='/' element={<HomeScreen />} />
           <Route path='/about' Component={AboutUs} />
+          <Route path='/cart' Component={CartScreen} />
           <Route path='/Product/:id' Component={ProductScreen}/>
         </Routes>
       <Footer />
