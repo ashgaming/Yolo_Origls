@@ -7,16 +7,15 @@ export default function Rating({value,text,clr}) {
     <div className='rating'>
 
         <span>
-            <i  style={clr} className={
+            <i style={{color:clr}} className={
                 value >=1 ? 'fas fa-star'
                 : value >= 0.5 ?'fas fa-star-half-alt'
                 :'far fa-star'
-            }></i>
-           
-            <span>{value} {text}</span>
+            } ></i>
+           <i className='far'></i>
         </span>
         <span>
-            <i style={clr} className={
+            <i style={{color:clr}}  className={
                 value>=2 ?
                 'fas fa-star'
                 : value >= 1.5
@@ -26,7 +25,7 @@ export default function Rating({value,text,clr}) {
             </i>
         </span>
         <span>
-            <i style={clr} className={
+            <i style={{color:clr}}  className={
                 value>=3 ?
                 'fas fa-star'
                 : value >= 2.5
@@ -36,7 +35,7 @@ export default function Rating({value,text,clr}) {
             </i>
         </span>
         <span>
-            <i style={clr} className={
+            <i style={{color:clr}}  className={
                 value>=4 ?
                 'fas fa-star'
                 : value >= 3.5
@@ -46,7 +45,7 @@ export default function Rating({value,text,clr}) {
             </i>
         </span>
         <span>
-            <i style={clr} className={
+            <i style={{color:clr}}  className={
                 value>=5 ?
                 'fas fa-star'
                 : value >= 4.5
@@ -55,7 +54,8 @@ export default function Rating({value,text,clr}) {
             }>
             </i>
          </span>
-         
+        
+        <span>{value} Rating from {text} Reviews</span>
     </div>
   )
 }

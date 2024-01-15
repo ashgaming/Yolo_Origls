@@ -7,7 +7,7 @@ const products = [
         'brand': 'zara',
         'catagory': 'Tshirt',
         'price': '999.99',
-        'countInStocks': '10',
+        'countInStocks': '20',
         'rating': '4.5',
         'numReviews': '12',
     },
