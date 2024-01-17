@@ -2,6 +2,7 @@ import React from 'react'
 import {Row,Col} from 'react-bootstrap'
 import products from '../Products'
 import Product from '../Components/Product'
+//import axios from 'axios'
 
 
 export default function HomeScreen() {
