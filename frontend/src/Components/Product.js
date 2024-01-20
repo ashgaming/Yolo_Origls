@@ -9,7 +9,7 @@ export default function Product({product}) {
     }
 
   return (
-    <Card className='my-3 p-3 rounded' style={{margin:'10px'}}  >
+    <Card className='my-3 p-3 rounded' style={{margin:'10px',width:'15rem'}}  >
         <Link to={`/Product/${product._id}`}>
         <Card.Img src={product.image} alt={product.name} />
         </Link> 

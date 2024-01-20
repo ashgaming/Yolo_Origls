@@ -1,13 +1,11 @@
 import Footer from './Components/Footer';
 import Headers from './Components/Headers';
-//import Product from './Components/Product';
 import AboutUs from './screens/AboutUs';
 import HomeScreen from './screens/HomeScreen';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
-//import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {

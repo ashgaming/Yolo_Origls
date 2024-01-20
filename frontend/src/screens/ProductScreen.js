@@ -1,15 +1,26 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useParams } from 'react-router-dom';
+import React ,{useState,useEffect} from 'react'
+import { Link,useParams } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
 import Rating from '../Components/Rating'
-import products from '../Products'
 import '../CSS/ProductScreen.css'
+import axios from 'axios';
 
 export default function ProductScreen({ match }) {
-  const { id } = useParams();
+  
+  const {id} = useParams()
+  const [product,setproduct] = useState([])
 
-  const product = id ? products.find((p) => p._id === id) : null
+  useEffect(()=>{
+    async function fetchProducts(){
+      const data = await axios.get(`/product/${id}`)
+      setproduct(data.data)
+    }
+
+
+    fetchProducts()
+    },[id])
+
+//  const product = id ? products.find((p) => p._id === id) : null
   return (
     <div className='ProductScreen'>
       {
@@ -21,7 +32,7 @@ export default function ProductScreen({ match }) {
                 <button className='btn btn-light my-3'>Go Back</button>
               </Link>
               <Row>
-                <Col md={6} sm={3} xl={3}>
+                <Col>
                   <Image src={product.image} alt={product.name} fluid />
                 </Col>
 
