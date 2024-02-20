@@ -24,8 +24,8 @@ function App() {
         <Routes>
           <Route path='/' element={<HomeScreen />} />
           <Route path='/about' Component={AboutUs} />
-          <Route path='/cart' Component={CartScreen} />
           <Route path='/Product/:id' Component={ProductScreen}/>
+          <Route path='/cart/:id?' Component={CartScreen} />
         </Routes>
       <Footer />
       </Router>

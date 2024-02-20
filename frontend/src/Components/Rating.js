@@ -1,21 +1,21 @@
 import React from 'react'
 import 'react-bootstrap'
-//import 'boostrap'
+import 'bootstrap'
 
 export default function Rating({value,text,clr}) {
   return (
     <div className='rating'>
 
         <span>
-            <i style={{color:clr}} className={
-                value >=1 ? 'fas fa-star'
-                : value >= 0.5 ?'fas fa-star-half-alt'
-                :'far fa-star'
+            <i style={{Color:clr}} className={
+                value >= 1 ? 'fas fa-star':
+                 value >= 0.5 ?'fas fa-star-half-alt' :
+                  'far fa-star'
             } ></i>
            <i className='far'></i>
         </span>
         <span>
-            <i style={{color:clr}}  className={
+            <i style={{Color:clr}}  className={
                 value>=2 ?
                 'fas fa-star'
                 : value >= 1.5
@@ -53,6 +53,7 @@ export default function Rating({value,text,clr}) {
                 :'far fa-star'
             }>
             </i>
+            
          </span>
         
         <span>{value} Rating from {text} Reviews</span>
