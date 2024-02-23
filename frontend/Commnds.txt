@@ -10,4 +10,8 @@ npm install axios
 
 
 python:
+<<<<<<< Updated upstream
 pip install djangorestframework
+=======
+
+>>>>>>> Stashed changes
