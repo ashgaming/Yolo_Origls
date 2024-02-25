@@ -2,9 +2,10 @@ import React from 'react'
 import { Card } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import Rating from './Rating'
+import '../CSS/glowBtn.css'
 
 export default function Product({product}) {
-    const url = "http://127.0.0.1:8000"
+    const url = "http://127.0.0.1:8000/static"
     const StarColor = {
         Color:'black',
     }
@@ -38,6 +39,9 @@ export default function Product({product}) {
             Rs{product.price}
             </Card.Text >
         </Card.Body>
+        <button type='button'>Enter</button>
     </Card>
+
+    
   )
 }

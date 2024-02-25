@@ -47,7 +47,7 @@ export default function ProductScreen() {
 
                 <Row >
                   <Col>
-                    <Image src={"http://127.0.0.1:8000" + product.image} alt={product.name} style={{ Width: '10rem', height: '30rem', aspectRatio: '3/2' }} fluid />
+                    <Image src={"http://127.0.0.1:8000/static" + product.image} alt={product.name} style={{ Width: '10rem', height: '30rem', aspectRatio: '3/2' }} fluid />
                   </Col>
 
                   <Col md={5}>

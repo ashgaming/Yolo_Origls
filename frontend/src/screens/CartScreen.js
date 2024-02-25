@@ -21,7 +21,7 @@ export default function CartScreen() {
     if (id) {
       dispatch(addToCart(id, qty))
     }
-  }, [dispatch,id, qty,cart])
+  }, [id,dispatch])
 
   const removeFromCartHandler = (id) =>
   {
@@ -35,7 +35,7 @@ export default function CartScreen() {
       <Col md={8}>
         <h1>Shopping Cart</h1>
         {
-          cartItems.lenght === 0 ? (
+          cartItems.lenght == 0 ? (
             <Message varient='info' text={'Your Cart is empty'}>
               <Link to='/' >Go Back</Link>
             </Message>

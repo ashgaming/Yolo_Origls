@@ -34,17 +34,13 @@ def registerUser(request):
             email=data['email'],
             password=make_password(data['password']),
         )
+        serializer = UserSerializersWithToken(user,many=False)
+        return Response(serializer.data)
     except:
         message = {'details':'User with this email already exists'}
         return Response(message,status=status.HTTP_400_BAD_REQUEST)
-    serializer = UserSerializersWithToken(user,many=False)
-    return Response(serializer.data)
+    
 
-
-# Create your views here.
-#@api_view(['GET'])
-#def getRoutes(request):
-#    return Response(products)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
