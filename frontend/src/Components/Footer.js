@@ -9,7 +9,7 @@ export default function Footer() {
     alignItems: 'center',
   }
   return (
-    <footer>
+    <footer >
       <Container>
         <Row>
           <Col className='text-center' style={styy}>copyright &copy; yolo menswear</Col>

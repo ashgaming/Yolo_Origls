@@ -1,17 +1,12 @@
 import React from 'react'
 import 'react-bootstrap'
-<<<<<<< Updated upstream
 import 'bootstrap'
-=======
-import 'ref'
->>>>>>> Stashed changes
 
 export default function Rating({value,text,color}) {
   return (
     <div className='rating'>
         <span>
-<<<<<<< Updated upstream
-            <i style={{Color:clr}} className={
+            <i style={{Color:color}} className={
                 value >= 1 ? 'fas fa-star':
                  value >= 0.5 ?'fas fa-star-half-alt' :
                   'far fa-star'
@@ -19,21 +14,7 @@ export default function Rating({value,text,color}) {
            <i className='far'></i>
         </span>
         <span>
-            <i style={{Color:clr}}  className={
-=======
-            <i  style={color} className={
-                value >=1 ?
-                'fas fa-star'
-                : value >= 0.5
-                ?'fas fa-star-half-alt'
-                :'far fa-star'
-            }>
-            </i>
-            <span>{value}</span>
-        </span>
-        <span>
-            <i Style={color} className={
->>>>>>> Stashed changes
+            <i style={{Color:color}}  className={
                 value>=2 ?
                 'fas fa-star'
                 : value >= 1.5
@@ -71,14 +52,10 @@ export default function Rating({value,text,color}) {
                 :'far fa-star'
             }>
             </i>
-<<<<<<< Updated upstream
             
          </span>
         
         <span>{value} Rating from {text} Reviews</span>
-=======
-        </span>
->>>>>>> Stashed changes
     </div>
   )
 }

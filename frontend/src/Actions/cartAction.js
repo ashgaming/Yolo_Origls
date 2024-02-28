@@ -1,8 +1,11 @@
 import axios from "axios";
-import { CART_ADD_ITEM,CART_REMOVE_ITEM } from "../Constants/CartConstants";
+import { 
+    CART_ADD_ITEM,CART_REMOVE_ITEM,
+    CART_SAVE_SHIPPING_ADDRESS 
+} from "../Constants/CartConstants";
 
 export const addToCart = (id,qtyy) => async (dispatch,getState)=>{
-    const url = "http://127.0.0.1:8000"
+    const url = "http://127.0.0.1:8000/static"
     const {data} = await axios.get(`http://127.0.0.1:8000/api/products/${id}`)
     const qty = parseInt(qtyy)
     dispatch({
@@ -16,7 +19,7 @@ export const addToCart = (id,qtyy) => async (dispatch,getState)=>{
             qty
         }
     }) 
-    localStorage.setItem('cartItems',JSON.stringify(getState().cart.cartItem))
+    
 }
 
 export const removeFromCart = (id) =>(dispatch,getState)=>{
@@ -26,4 +29,13 @@ export const removeFromCart = (id) =>(dispatch,getState)=>{
     })
 
     localStorage.setItem('cartItems',JSON.stringify(getState().cart.cartItem))
+}
+
+export const saveShippingAddress = (data) =>(dispatch)=>{
+    dispatch({
+        type:CART_SAVE_SHIPPING_ADDRESS,
+        payload: data,
+    })
+
+    localStorage.setItem('Shipping_Address',JSON.stringify(data))
 }

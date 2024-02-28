@@ -39,7 +39,6 @@ export default function Product({product}) {
             Rs{product.price}
             </Card.Text >
         </Card.Body>
-        <button type='button'>Enter</button>
     </Card>
 
     
