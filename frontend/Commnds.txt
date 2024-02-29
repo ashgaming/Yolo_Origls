@@ -10,6 +10,8 @@ npm install axios
 
 
 python:
+<<<<<<< Updated upstream
 pip install djangorestframework
-pip install djangorestframework-simplejwt
-pip install pillow
+=======
+
+>>>>>>> Stashed changes
