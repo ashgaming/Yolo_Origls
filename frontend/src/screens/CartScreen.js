@@ -16,7 +16,7 @@ export default function CartScreen() {
   const cart = useSelector(state => state.cart)
   const { cartItems } = cart ? cart : localStorage.getItem('cartItems')
 
-
+  console.log(cart.cartItems)
 
   useEffect(() => {
     if (id) {
@@ -53,7 +53,7 @@ export default function CartScreen() {
                     <ListGroup.Item key={item.product}>
                       <Row>
                         <Col md={2}>
-                          <Image src={item.Image} width={'100px'} alt={item.product} fluid rounded />
+                          <Image src={item.Image} width={'100px'} height={'400px'} alt={item.product} fluid rounded />
                         </Col>
                         <Col md={3}>
                           <Link to={`/product/${item.product}`}>{item.name}</Link>

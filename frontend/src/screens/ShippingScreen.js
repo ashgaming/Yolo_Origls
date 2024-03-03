@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../Components/FormContainer'
 import { useNavigate } from 'react-router-dom'
 import { saveShippingAddress } from '../Actions/cartAction'
+import CheckoutSteps from './CheckoutSteps'
 export default function ShippingScreen() {
 
 
@@ -17,16 +18,18 @@ export default function ShippingScreen() {
     const [city, setCity] = useState(shippingAddress.city)
     const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
     const [country, setCountry] = useState(shippingAddress.country)
+    console.log(addr,city,postalCode,country)
 
     const submitHandler = (e) =>{
         e.preventDefault()
-        console.log(addr,city,postalCode,country)
         dispatch(saveShippingAddress({addr,city,postalCode,country}))
         history('/payment')
     }
     return (
         <FormContainer >
+            <CheckoutSteps step1 step2 />
             <Form onSubmit={submitHandler} style={{margin:'50px'}}>
+            <h1>Shipping</h1>
                 <Form.Group controlId='address'>
                     <Form.Label>Address</Form.Label>
                     <Form.Control type='text'

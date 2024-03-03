@@ -15,7 +15,7 @@ export default function Loader() {
             }
         }
     >
-        <span className='sr-only'>loading...</span>
+        <span className='sr-only'></span>
     </Spinner>
   )
 }

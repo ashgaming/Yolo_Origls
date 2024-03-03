@@ -19,6 +19,9 @@ export const addToCart = (id,qtyy) => async (dispatch,getState)=>{
             qty
         }
     }) 
+    if(getState().cart.cartItem){
+        localStorage.setItem('cartItems',JSON.stringify(getState().cart.cartItem))
+    }
     
 }
 
@@ -37,5 +40,5 @@ export const saveShippingAddress = (data) =>(dispatch)=>{
         payload: data,
     })
 
-    localStorage.setItem('Shipping_Address',JSON.stringify(data))
+    localStorage.setItem('ShippingAddress',JSON.stringify(data))
 }
