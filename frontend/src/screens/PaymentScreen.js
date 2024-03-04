@@ -3,24 +3,29 @@ import { Form, Button,Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../Components/FormContainer'
 import { useNavigate } from 'react-router-dom'
-//import { savePaymentMethod } from '../Actions/cartAction'
+import { savePaymentMethod } from '../Actions/cartAction'
 import CheckoutSteps from './CheckoutSteps'
 
 export default function PaymentScreen() {
   const history = useNavigate()
-
+  
   const cart = useSelector(state=>state.cart)
   const {shippingAddress} = cart
+  console.log('shi',cart)
+  useEffect(()=>{
+    if(!shippingAddress.addr){
+      history('/shipping')
+    }
+  },[history,shippingAddress])
+    
+  console.log('shippinng:',shippingAddress.addr)
 
   const dispatch = useDispatch()
   const [paymentMethod,setPaymentMethod] = useState('GooglePay')
-  if(!shippingAddress.address){
-    history('/shipping')
-  }
   
   const submitHandler = (e) =>{
     e.preventDefault()
-    // dispatch(savePaymentMethod(paymentMethod))
+    dispatch(savePaymentMethod(paymentMethod))
     history('/placeorder')
 
   }
@@ -35,16 +40,28 @@ export default function PaymentScreen() {
           <Col>
           <Form.Check
           type='radio'
-            Label='payment or creadit card'
-            id='paypal'
+            label='Online'
+            id='Google Pay'
             value='paypal'
-            name='paypalmethod'
+            name='paymentmethod'
             checked
             onChange={(e)=>setPaymentMethod(e.target.value)}
 >
           </Form.Check>
           <Form.Text>
-            PayPal
+            GooglePay
+          </Form.Text>
+          <Form.Check
+          type='radio'
+            label='Offline'
+            id='cod'
+            value='COD'
+            name='paymentmethod'
+            onChange={(e)=>setPaymentMethod(e.target.value)}
+>
+          </Form.Check>
+          <Form.Text>
+            Cash On Delivery
           </Form.Text>
           </Col>
         </Form.Group>

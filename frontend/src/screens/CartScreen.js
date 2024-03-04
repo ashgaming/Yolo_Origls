@@ -13,17 +13,17 @@ export default function CartScreen() {
   const qty = searchParams.get('qty')
   const dispatch = useDispatch()
 
-  const cart = useSelector(state => state.cart)
-  const { cartItems } = cart ? cart : localStorage.getItem('cartItems')
-
-  console.log(cart.cartItems)
-
   useEffect(() => {
     if (id) {
       dispatch(addToCart(id, qty))
     }
   }, [id, dispatch, qty])
+  
 
+    const cart = useSelector(state => state.cart)
+    const { cartItems } = cart
+
+  
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id))
   }
@@ -40,9 +40,9 @@ export default function CartScreen() {
             <>
               <Message varient='info' text={'Your Cart is empty'}>
               </Message>
-              <Button>
-                <Link to='/'></Link>Go Back
-              </Button>
+              
+                <Link to='/'><Button>Go Back</Button></Link>
+              
             </>
 
           ) :
@@ -121,7 +121,6 @@ export default function CartScreen() {
           }
         </Card>
       </Col>
-      CartScreen
     </Row>
   )
 }

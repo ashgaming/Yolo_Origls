@@ -16,10 +16,12 @@ export default function Product({product}) {
         aspectRatio:'3/2'
     }
 
+
   return (
+
     <Card className='my-3 p-3 rounded' style={{margin:'10px',width:'15rem'}}  >
-        <Link to={`/Product/${product._id}`}>
-        <Card.Img src={url + product.image} alt={product.name} style={imgStyle} loading='lazy'/>
+        <Link to={`/Product/${product._id}`}>   
+                <Card.Img src={url+product.image} alt={product.name} style={imgStyle} loading='lazy' />
         </Link> 
 
         <Card.Body>

@@ -24,7 +24,7 @@ export default function Rating({value,text,color}) {
             </i>
         </span>
         <span>
-            <i Style={color} className={
+            <i style={color} className={
                 value>=3 ?
                 'fas fa-star'
                 : value >= 2.5
@@ -34,7 +34,7 @@ export default function Rating({value,text,color}) {
             </i>
         </span>
         <span>
-            <i Style={color} className={
+            <i style={color} className={
                 value>=4 ?
                 'fas fa-star'
                 : value >= 3.5
@@ -44,7 +44,7 @@ export default function Rating({value,text,color}) {
             </i>
         </span>
         <span>
-            <i Style={color} className={
+            <i style={color} className={
                 value>=5 ?
                 'fas fa-star'
                 : value >= 4.5

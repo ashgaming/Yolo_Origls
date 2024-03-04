@@ -16,13 +16,14 @@ export default function ShippingScreen() {
 
     const [addr, setAddr] = useState(shippingAddress.addr)
     const [city, setCity] = useState(shippingAddress.city)
+    const [_state, set_state] = useState(shippingAddress._state)
     const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
     const [country, setCountry] = useState(shippingAddress.country)
     console.log(addr,city,postalCode,country)
 
     const submitHandler = (e) =>{
         e.preventDefault()
-        dispatch(saveShippingAddress({addr,city,postalCode,country}))
+        dispatch(saveShippingAddress({addr,city,postalCode,_state,country}))
         history('/payment')
     }
     return (
@@ -56,6 +57,16 @@ export default function ShippingScreen() {
                         placeholder='Enter Pincode'
                         value={postalCode}
                         onChange={(e) => setPostalCode(e.target.value)}
+                        required
+                    ></Form.Control>
+                </Form.Group>
+
+                <Form.Group controlId='text'>
+                    <Form.Label>State</Form.Label>
+                    <Form.Control type='text'
+                        placeholder='Enter State'
+                        value={_state}
+                        onChange={(e) => set_state(e.target.value)}
                         required
                     ></Form.Control>
                 </Form.Group>
