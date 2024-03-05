@@ -3,7 +3,7 @@ import Headers from './Components/Headers';
 import AboutUs from './screens/AboutUs';
 import HomeScreen from './screens/HomeScreen';
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -20,11 +20,11 @@ function App() {
     backgroundColor: 'lightgray',
     padding: '10px',
     border: '1px solid darkgray',
+    height:'100vh',
    
   }
   return (
     <div className="App" style={theme} >
-
       <Router history>
       <Headers />
         <Routes>
