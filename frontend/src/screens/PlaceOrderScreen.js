@@ -7,6 +7,7 @@ import CheckoutSteps from './CheckoutSteps'
 import { useNavigate } from 'react-router-dom'
 import { createOrder } from '../Actions/orderAction'
 import { removeFromCart } from '../Actions/cartAction'
+import { ORDER_CREATE_RESET } from '../Constants/orderConstants'
 
 export default function PlaceOrderScreen() {
     const style = {
@@ -16,10 +17,10 @@ export default function PlaceOrderScreen() {
 
     const history = useNavigate()
     const orderCreate = useSelector(state => state.orderCreate)
-    const { order,success, error } = orderCreate
+    const { order, success, error } = orderCreate
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
-    console.log('cart',cart)
+    console.log('cart', cart)
 
 
     cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
@@ -27,16 +28,19 @@ export default function PlaceOrderScreen() {
     cart.taxPrice = ((0.002) * cart.itemsPrice).toFixed(2)
     cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.taxPrice) + Number(cart.shippingPrice)).toFixed(2)
 
-    console.log('pay',cart.paymentMethod)
-    if(!cart.paymentMethod){
+    console.log('pay', cart.paymentMethod)
+    if (!cart.paymentMethod) {
         history('/payment')
     }
 
     useEffect(() => {
         if (success) {
             history(`/order/${order._id}`)
+            dispatch({
+                type:ORDER_CREATE_RESET
+            })
         }
-    }, [success, history,order])
+    }, [success, history, order])
 
     const placeorder = () => {
         dispatch(createOrder(
@@ -51,7 +55,7 @@ export default function PlaceOrderScreen() {
             }
         ))
 
-      //  dispatch(removeFromCart())
+        //  dispatch(removeFromCart())
 
     }
     return (
@@ -64,7 +68,7 @@ export default function PlaceOrderScreen() {
                             <h1>Shipping</h1>
                             <p>
                                 <strong>Shipping:</strong>
-                                {cart.shippingAddress.addr},{cart.shippingAddress.city},{cart.shippingAddress.postalCode},{cart.shippingAddress.country}
+                                {cart.shippingAddress.addr},{cart.shippingAddress.city},{cart.shippingAddress.postalCode},{cart.shippingAddress._state},{cart.shippingAddress.country}
                             </p>
                         </ListGroup.Item>
 
@@ -139,12 +143,12 @@ export default function PlaceOrderScreen() {
                                     <Col>Rs{cart.totalPrice}</Col>
                                 </Row>
                             </ListGroup.Item>
-                                {
-                                    error && 
-                            <ListGroup.Item>
-                                     <Message variant='danger' text={error}>{error}</Message>
-                            </ListGroup.Item>
-                                }
+                            {
+                                error &&
+                                <ListGroup.Item>
+                                    <Message variant='danger' text={error}>{error}</Message>
+                                </ListGroup.Item>
+                            }
                             <ListGroup.Item>
                                 <Button
                                     type='button'
