@@ -1,27 +1,23 @@
 import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import {Row, Col } from 'react-bootstrap'
+import '../CSS/Footer.css'
 
 export default function Footer() {
-  const styy = {
-    backgroundColor: 'grey',
+
+  const style = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-  }
-
-  const style = {
-    position: 'fixed', /* or absolute */
-    left: '50%',
-    transform: 'translateX(-50%)',
-    bottom: 0
+    width:'100%',
+    maxWidth:'1992px',
+    
   }
   return (
-    <footer >
-      <Container style={style}>
+    <footer className='FooterBack'>
+     
         <Row>
-          <Col className='text-center' style={styy}>copyright &copy; yolo menswear</Col>
+          <Col className='text-center' style={{style}}>copyright &copy; yolo menswear</Col>
         </Row>
-      </Container>
 
     </footer>
   )

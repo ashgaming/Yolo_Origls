@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 //import { Link } from 'react-router-dom'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Form, Button, Row, Col,Table } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from "react-redux";
 import Message from '../Components/Message'
 import Loader from '../Components/Loader'
 import { useNavigate } from 'react-router-dom';
 import { getUserDetails, updateUserProfile } from "../Actions/userAction";
 import { USER_UPDATE_PROFILE_RESET } from '../Constants/userConstants'
+import {listMyOrders} from '../Actions/orderAction'
 
 export default function ProfileScreen() {
     const history = useNavigate()
@@ -28,7 +30,9 @@ export default function ProfileScreen() {
 
     const userUpdateProfile = useSelector(state => state.userUpdateProfile)
     const { success } = userUpdateProfile
-
+    
+    const myorderlist = useSelector(state => state.myorderlist)
+    const { loading:loadingOrders,error:errorOrder,orders} = myorderlist
     console.log(user.password)
 
     console.log(user)
@@ -39,6 +43,7 @@ export default function ProfileScreen() {
             if (!user || !user.name || success) {
                 dispatch({ type: USER_UPDATE_PROFILE_RESET })
                 dispatch(getUserDetails('profile'))
+                dispatch(listMyOrders())
             } else {
                 setName(user.name)
                 setUsername(user.username)
@@ -62,6 +67,8 @@ export default function ProfileScreen() {
             }))
         }
     }
+
+    console.log(orders)
     return (
         <Row>
             <Col md={3}>
@@ -121,6 +128,53 @@ export default function ProfileScreen() {
 
             <Col md={3}>
                 <h2>My Order</h2>
+                {
+                    loadingOrders ?
+                    (
+                        <Loader/>
+                    ):errorOrder ? (
+                        <Message varient='danger' text={errorOrder} />
+                    ):
+                    (
+                        <Table striped responsive className='table-sm'>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Date</th>
+                                    <th>Total</th>
+                                    <th>Paid</th>
+                                    <th>Delelivered</th>
+                                    <th>DETAILS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    orders.map(order=>(
+                                        <tr key={order._id}>
+                                            <td>{order._id}</td>
+                                            <td>{order.createdAt.substring(0,10)}</td>
+                                            <td>{order.totalPrice}</td>
+                                            <td>{order.isPaid ? order.paidAT.substring(0,10) : (
+                                                <i className='fas fa-times' style={{color:'red'}}>-</i>
+                                            )} </td>
+                                            <td></td>
+                                            <td>
+                                                <LinkContainer to={`/order/${order._id}`}>
+                                                    <Button className='btn-sm' style={{
+                                                        backgroundColor:'red',
+                                                        color:'red',
+                                                    }}>DETAILS</Button>
+                                                
+                                                </LinkContainer>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </Table>
+                    )
+                    
+                }
             </Col>
         </Row>
     )

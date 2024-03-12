@@ -5,9 +5,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: black;
+  background-color: lightgrey;
+  padding: 10px;
+  border: 1px solid darkgray;
+  height: 100vh;
+  overflow-x: hidden;
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+

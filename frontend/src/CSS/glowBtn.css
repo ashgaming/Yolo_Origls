@@ -8,7 +8,7 @@ button{
 
 button:hover{
     -webkit-box-reflect: below 1px linear-gradient(transparent,#0005);
-    box-shadow:0 0 5px red, 0 0 15px red ,0 0 25px red, 0 0 100px red;
+    box-shadow:0 0 5px rgb(64, 64, 224), 0 0 rgb(64, 64, 224) ,0 0 25px rgb(64, 64, 224), 0 0 100px rgb(64, 64, 224);
     cursor: pointer;
 
 }

@@ -1,5 +1,5 @@
 import React, {useEffect } from 'react'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Container } from 'react-bootstrap'
 import Product from '../Components/Product'
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../Actions/productActions";
@@ -11,7 +11,18 @@ export default function HomeScreen() {
   const dispatch = useDispatch()
   const productList = useSelector(state => state.productlist)
   const { error, loading, products } = productList
-  
+  const containerStyle = {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between', // Adjust alignment as needed
+    alignItems:'center',
+  };
+
+  const gridview = {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(14rem, 1fr))',
+    gap: '20px',
+  }
   useEffect(() => {
     try{
       dispatch(listProducts())
@@ -30,14 +41,16 @@ export default function HomeScreen() {
         : error? <Message varient={'danger'} text={error}></Message>
         :
          <>
+        
+        <div style={gridview}>
+
         {
           products.map(product => (
-            <Col key={product._id} sm={12} md={6} lg={4} xl={2}>
-              <Product product={product} />
-            </Col>
-          ))
-
-        }
+            <Product product={product} />
+            ))
+            
+          }
+          </div>
           </>
 }
       </Row>

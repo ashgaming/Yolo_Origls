@@ -12,6 +12,13 @@ export default function ShippingScreen() {
     const cart = useSelector(state=>state.cart)
     const {shippingAddress}=cart
 
+    const userDetails = useSelector(state=>state.userDetails)
+    const {user}=userDetails
+
+    if(user){
+        history('/login')
+    }
+
     const dispatch = useDispatch()
 
     const [addr, setAddr] = useState(shippingAddress.addr)
@@ -19,7 +26,6 @@ export default function ShippingScreen() {
     const [_state, set_state] = useState(shippingAddress._state)
     const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
     const [country, setCountry] = useState(shippingAddress.country)
-    console.log(addr,city,postalCode,country)
 
     const submitHandler = (e) =>{
         e.preventDefault()

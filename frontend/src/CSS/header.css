@@ -1,0 +1,7 @@
+.headersposition{
+    position: fixed; /* or absolute */
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    top:0;
+}
