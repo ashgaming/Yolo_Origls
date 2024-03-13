@@ -11,6 +11,7 @@ import {
     userUpdateProfileReducers,
     userListReducer,
 } from "./Reducers/userReducers";
+import {colorThemeReducers} from "./Reducers/themeReducers";
 
 const reducer = combineReducers({
     productlist: productListReducers,
@@ -25,6 +26,7 @@ const reducer = combineReducers({
     orderDetails:orderDetailsReducer,
     orderPay:orderPayReducer,
     myorderlist:myorderlistReducer,
+    colorTheme:colorThemeReducers
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []

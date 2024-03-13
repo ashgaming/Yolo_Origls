@@ -13,20 +13,27 @@ import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
 import UserListScreen from './screens/UserListScreen';
+import { useSelector } from 'react-redux'
+import SetTheme from './Components/SetTheme';
+
 
 
 function App() {
+  const {colorTheme} = useSelector(state=>state.colorTheme)
+  const { color,backgroundColor,navColor,navBackgound } = colorTheme
   const theme = {
     width:'100%',
-    height:'relative',
-    backgroundColor:'lightgrey',
+    height:'100vw',
+    backgroundColor:backgroundColor,
+    color:color
   }
   return (
     <div className="App" style={theme}>
       <Router history>
-      <Headers />
+      <Headers clr={navColor} bclr={navBackgound}/>
         <Routes>
           <Route path='/' element={<HomeScreen />} exact/>
+          <Route path='/set' element={<SetTheme />} />
           <Route path='/login' element={<LoginScreen />} />
           <Route path='/payment' element={<PaymentScreen />} />
           <Route path='/register' element={<RegisterScreen />} />

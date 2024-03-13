@@ -1,22 +1,24 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { logout } from '../Actions/userAction';
 //import { Link } from 'react-router-dom';
 import '../CSS/header.css'
+import SetTheme from './SetTheme';
 
-export default function Headers() {
+export default function Headers({ clr, bclr }) {
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
   const dispatch = useDispatch()
-  const logoutHandler = () =>{
+  const logoutHandler = () => {
     dispatch(logout())
   }
+
   return (
     <header>
 
-      <Navbar bg="dark" data-bs-theme="dark">
+      <Navbar bg={clr} data-bs-theme={clr}>
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand >BRAND</Navbar.Brand>
@@ -33,11 +35,20 @@ export default function Headers() {
                 <Nav.Link>Cart</Nav.Link>
               </LinkContainer>
 
+
               <LinkContainer to='/about'>
                 <Nav.Link>About Us</Nav.Link>
               </LinkContainer>
 
-              { userInfo ? (
+              <LinkContainer to='/set'>
+                <Nav.Link>Setting</Nav.Link>
+              </LinkContainer>
+
+              <Nav.Item>
+          <SetTheme/>
+          </Nav.Item>
+
+              {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
                   <LinkContainer to='/profile' >
                     <NavDropdown.Item>Profile</NavDropdown.Item>
@@ -50,12 +61,10 @@ export default function Headers() {
                     <Nav.Link>Login</Nav.Link>
                   </LinkContainer>
                 )
-                }
-
-
-
+              }
             </Nav>
           </Navbar.Collapse>
+          
         </Container>
       </Navbar>
     </header>
