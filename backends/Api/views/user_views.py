@@ -9,6 +9,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
+from  datetime import datetime
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self,attrs):
@@ -19,6 +20,9 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         for k,v in serializer.items():
             data[k] = v
 
+        self.user.is_active = True
+        self.user.last_login = datetime.now()
+        self.user.save()
         return data
     
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -33,6 +37,7 @@ def registerUser(request):
             username=data['email'],
             email=data['email'],
             password=make_password(data['password']),
+            date_joined=datetime.now()
         )
         serializer = UserSerializersWithToken(user,many=False)
         return Response(serializer.data)
@@ -70,3 +75,33 @@ def getUsers(request):
     users = User.objects.all()
     serializer = UserSerializer(users,many=True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getUsersById(request,pk):
+    user = User.objects.get(id=pk)
+    serializer = UserSerializer(user,many=False)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUser(request,pk):
+   # print(request.data)
+    user = User.objects.get(id=pk)
+
+    data = request.data
+    user.first_name = data['name']
+    user.username = data['username']
+    user.email = data['email']
+    user.is_staff = data['isAdmin']
+
+    user.save()
+    serializer = UserSerializer(user,many=False)
+    return Response(data)
+
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+def deleteUser(request,pk):
+    userForDelete = User.objects.get(id=pk)
+    userForDelete.delete()
+    return Response('User was Deleted')

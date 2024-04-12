@@ -13,24 +13,32 @@ import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
 import UserListScreen from './screens/UserListScreen';
-import { useSelector } from 'react-redux'
 import SetTheme from './Components/SetTheme';
+import UserEditScreen from './screens/UserEditScreen';
+import ProductListScreen from './screens/ProductListScreen';
+import ProductEditScreen from './screens/ProductEditScreen';
 
 
 
 function App() {
-  const {colorTheme} = useSelector(state=>state.colorTheme)
+  /*const {colorTheme} = useSelector(state=>state.colorTheme)
   const { color,backgroundColor,navColor,navBackgound } = colorTheme
-  const theme = {
+  */
+ const theme = {
     width:'100%',
-    height:'100vw',
-    backgroundColor:backgroundColor,
-    color:color
+    minHeight:'99vh',
+    maxHeight:'1000vh',
+    backgroundColor:'#2c2c2c',
+    color:'white',
+
   }
   return (
     <div className="App" style={theme}>
       <Router history>
+{/*
       <Headers clr={navColor} bclr={navBackgound}/>
+*/}
+      <Headers/>
         <Routes>
           <Route path='/' element={<HomeScreen />} exact/>
           <Route path='/set' element={<SetTheme />} />
@@ -44,7 +52,10 @@ function App() {
           <Route path='/Shipping' Component={ShippingScreen}/>
           <Route path='/cart/:id?' Component={CartScreen} />
           <Route path='/order/:id' Component={OrderScreen} />
-          <Route path='/admin/userslist' Component={UserListScreen} />
+          <Route path='/admin/userlist' Component={UserListScreen} />
+          <Route path='/admin/productlist' Component={ProductListScreen} />
+          <Route path='/admin/user/:id/edit' Component={UserEditScreen} />
+          <Route path='/admin/product/:id/edit' Component={ProductEditScreen} />
         </Routes>
       <Footer />
       </Router>

@@ -1,37 +1,10 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { thunk } from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { productListReducers, productDetailsReducers } from './Reducers/productReducers'
-import { cartReducer } from "./Reducers/cartReducers"
-import { orderCreateReducer,orderDetailsReducer,orderPayReducer,myorderlistReducer } from "./Reducers/orderReducers"
-import {
-    userLoginReducers,
-    userRegisterReducers,
-    userDetailsReducers,
-    userUpdateProfileReducers,
-    userListReducer,
-} from "./Reducers/userReducers";
-import {colorThemeReducers} from "./Reducers/themeReducers";
+import { reducer } from './combineReducer'
 
-const reducer = combineReducers({
-    productlist: productListReducers,
-    productDetails: productDetailsReducers,
-    cart: cartReducer,
-    userLogin: userLoginReducers,
-    userRegister: userRegisterReducers,
-    userDetails: userDetailsReducers,
-    userUpdateProfile: userUpdateProfileReducers,
-    userList:userListReducer,
-    orderCreate:orderCreateReducer,
-    orderDetails:orderDetailsReducer,
-    orderPay:orderPayReducer,
-    myorderlist:myorderlistReducer,
-    colorTheme:colorThemeReducers
-})
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
-//const cartItemsFromStorage = JSON.parse(localStorage.getItem('cartItems'))
-console.log('cartItemsFromStorage',cartItemsFromStorage)
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
 
@@ -51,5 +24,8 @@ const middleware = [thunk]
 
 const store = createStore(reducer, initialState,
     composeWithDevTools(applyMiddleware(...middleware)))
+
+//const store = createStore(reducer, initialState,
+//    applyMiddleware(...middleware))
 
 export default store

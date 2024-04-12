@@ -18,7 +18,7 @@ export default function Headers({ clr, bclr }) {
   return (
     <header>
 
-      <Navbar bg={clr} data-bs-theme={clr}>
+      <Navbar bg={'dark'} data-bs-theme={'dark'}>
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand >BRAND</Navbar.Brand>
@@ -35,18 +35,19 @@ export default function Headers({ clr, bclr }) {
                 <Nav.Link>Cart</Nav.Link>
               </LinkContainer>
 
-
               <LinkContainer to='/about'>
                 <Nav.Link>About Us</Nav.Link>
               </LinkContainer>
 
+{/**
               <LinkContainer to='/set'>
                 <Nav.Link>Setting</Nav.Link>
               </LinkContainer>
 
               <Nav.Item>
-          <SetTheme/>
-          </Nav.Item>
+                <SetTheme />
+              </Nav.Item>
+            */}
 
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
@@ -62,9 +63,24 @@ export default function Headers({ clr, bclr }) {
                   </LinkContainer>
                 )
               }
+
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown title={'Admin'} id='adminMenu'>
+                  <LinkContainer to='/admin/userlist' >
+                    <NavDropdown.Item>Users</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/productlist' >
+                    <NavDropdown.Item> Products</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/orderlist' >
+                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )
+              }
             </Nav>
           </Navbar.Collapse>
-          
+
         </Container>
       </Navbar>
     </header>
