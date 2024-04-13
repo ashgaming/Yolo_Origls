@@ -17,6 +17,7 @@ import SetTheme from './Components/SetTheme';
 import UserEditScreen from './screens/UserEditScreen';
 import ProductListScreen from './screens/ProductListScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
+import OrderListScreen from './screens/OrderListScreen';
 
 
 
@@ -32,6 +33,8 @@ function App() {
     color:'white',
 
   }
+
+
   return (
     <div className="App" style={theme}>
       <Router history>
@@ -40,7 +43,9 @@ function App() {
 */}
       <Headers/>
         <Routes>
-          <Route path='/' element={<HomeScreen />} exact/>
+         
+
+          <Route path='' element={<HomeScreen />} />
           <Route path='/set' element={<SetTheme />} />
           <Route path='/login' element={<LoginScreen />} />
           <Route path='/payment' element={<PaymentScreen />} />
@@ -52,6 +57,7 @@ function App() {
           <Route path='/Shipping' Component={ShippingScreen}/>
           <Route path='/cart/:id?' Component={CartScreen} />
           <Route path='/order/:id' Component={OrderScreen} />
+          <Route path='/admin/orderlist/' Component={OrderListScreen} />
           <Route path='/admin/userlist' Component={UserListScreen} />
           <Route path='/admin/productlist' Component={ProductListScreen} />
           <Route path='/admin/user/:id/edit' Component={UserEditScreen} />
