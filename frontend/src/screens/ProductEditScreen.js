@@ -15,10 +15,11 @@ export default function ProductEditScreen() {
     const { id } = useParams()
     const Location = useLocation()
     const navigate = useNavigate()
-    const src = 'http://127.0.0.1:8000/static'
 
-
-
+    const url = 'http://127.0.0.1:8000/';
+    const src = url+'static';
+    
+    
     const [pid, setId] = useState(id)
     const [name, setname] = useState('')
     const [price, setPrice] = useState('')
@@ -28,8 +29,6 @@ export default function ProductEditScreen() {
     const [description, setDesription] = useState('')
     const [stock, setStock] = useState(0)
     const [uploading, setUploading] = useState(false)
-
-
     const dispatch = useDispatch()
 
     const productDetails = useSelector(state => state.productDetails)
@@ -39,22 +38,26 @@ export default function ProductEditScreen() {
     const { error: errorUpdate, loading: loadingUpdate, success: successUpdate } = productUpdate
 
     useEffect(() => {
+        
         if (successUpdate) {
             dispatch({ type: PRODUCT_UPDATE_RESET })
             navigate('/admin/productlist')
-        }
-
-        if (!product.name || product._id !== Number(id)) {
-            dispatch(listProductDetails(id))
         } else {
-            setId(product._id)
-            setname(product.name)
-            setImage(product.image)
-            setBrand(product.brand)
-            setCategory(product.category)
-            setDesription(product.description)
-            setPrice(product.price)
-            setStock(product.countInStock)
+
+            if (!product.name || product._id !== Number(id)) {
+                dispatch(listProductDetails(id))
+            } else {
+                setId(product._id)
+                setname(product.name)
+                setImage(product.image)
+                setBrand(product.brand)
+                setCategory(product.category)
+                setDesription(product.description)
+                setPrice(product.price)
+                setStock(product.countInStock)
+                console.log('image set by state')
+            }
+
         }
     }, [dispatch, product, id, successUpdate, navigate])
 
@@ -73,13 +76,30 @@ export default function ProductEditScreen() {
 
     }
 
-    useEffect(()=>{
-    uploadFileHandler()
-   },[image]
-    )
-
     const uploadFileHandler = async (e) => {
-        console.log('file')
+        setImage(e.target.files[0])
+        const file = e.target.files[0]
+        const formData = new FormData()
+
+        formData.append('image', file)
+        formData.append('product_id', id)
+
+        setUploading(true)
+
+        try {
+            const config = {
+                headers: {
+                    'Content-type': 'multipart/form-data'
+                }
+            }
+            const {data} = await axios.post(url+'api/products/upload/',formData,config)
+            console.log('data',data)
+            setImage(data.image)
+            console.log('image set by after image change', image)
+            setUploading(false)
+        } catch (error) {
+            setUploading(false)
+        }
     }
     return (
         <div >
@@ -89,23 +109,20 @@ export default function ProductEditScreen() {
 
             <FormContainer >
                 <h1>Edit Product</h1>
+                {loadingUpdate ? <Loader /> : errorUpdate && <Message varient='danger' text={error}></Message>}
                 <h1>ID : {pid}</h1>
                 {errorUpdate && <Message varient='danger' text={errorUpdate}>{errorUpdate}</Message>}
                 {loading ? <Loader /> : error ? <Message varient='danger' text={error}></Message> : (
                     <Form onSubmit={submitHandler}>
-
-                        {image !== '' ? (<Image
+                        
+                        {image !== null && (<Image
                             width='100%'
-                            src={image}
-                        />) :
-                            product.image &&
-                            <Image
-                                width='100%'
-                                src={src + image}
-                            />
+                            height='200px'
+                            src={src+image.toString()}
+                            alt={product.name}
+                        />)
 
                         }
-
 
                         <Form.Group controlId='name'>
                             <Form.Label>Enter Name</Form.Label>
@@ -117,17 +134,21 @@ export default function ProductEditScreen() {
                             ></Form.Control>
                         </Form.Group>
 
+                        {uploading && <Loader />}
+
                         <Form.Group controlId='image'>
                             <Form.Label>Enter image</Form.Label>
                             <Form.Control
                                 type='file'
                                 placeholder='Enter Image'
                                 src={image}
-                                onChange={(e) => setImage(e.target.value)}
-                            ></Form.Control>
+                                onChange={(e) => uploadFileHandler(e) }
+                            >
 
-                            
+                            </Form.Control>
+
                         </Form.Group>
+
 
                         <Form.Group controlId='description'>
                             <Form.Label>Description</Form.Label>
@@ -136,9 +157,10 @@ export default function ProductEditScreen() {
                                 placeholder='Description'
                                 required
                                 value={description}
-                                onChange={(e) => setDesription(e.target.value)}
-                                >
-
+                                onChange={(e) => {
+                                    setDesription(e.target.value)
+                                }}
+                            >
                             </Form.Control>
                         </Form.Group>
 
@@ -177,24 +199,6 @@ export default function ProductEditScreen() {
                                 value={stock}
                                 onChange={(e) => setStock(e.target.value)}></Form.Control>
                         </Form.Group>
-
-
-
-
-
-                        {/**
-                       * 
-                        <Form.Group controlId='isAdmin'>
-                            <Form.Check 
-                                type='checkbox'
-                                Label={'Is Admin'}
-                                checked={isAdmin}
-                                onChange={(e) => setIsAdmin(e.target.checked)}></Form.Check>
-                                <Form.Label>Is Admin</Form.Label>
-                        </Form.Group>
-                        */}
-
-                        {image}
 
                         <Button type='submit' varient='primary' style={{ marginTop: '20px', marginBottom: '50px' }}>Update</Button>
 

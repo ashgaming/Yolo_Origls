@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view , permission_classes
 from rest_framework.permissions import IsAuthenticated , IsAdminUser
 from rest_framework_simplejwt.tokens import Token
 from Api.models import Product
-from Api.serializer import ProductSerializer
+from Api.serializer import ProductSerializer,ProductImageSerializer
 from rest_framework import status
 
 @api_view(['GET'])
@@ -34,12 +34,6 @@ def createProduct(request):
         category='category',
         description='description',
         rating='0'
-      #  name=data['name'],
-      #  price=data['price'],
-      #  brand= data['brand'],
-      #  countInStock=data['countInStock'],
-      #  catagory =data['catagory'],
-      #  description=data['description'],
     )
     serializer = ProductSerializer(product,many=False)
     return Response(serializer.data)
@@ -56,7 +50,9 @@ def updateProduct(request,pk):
     product.countInStock = data['countInStock']
     product.category = data['category']
     product.description = data['description']
-    product.image = data['image']
+    product.image = data['image'][7:]
+
+    print('saved image',product.image)
 
     product.save()
     serializer = ProductSerializer(product,many=False)
@@ -79,4 +75,10 @@ def uploadImage(request):
 
     product.image = request.FILES.get('image')
     product.save()
-    return Response('Image was uploaded')
+    print(product.image)
+    serializer = ProductImageSerializer(product,many=False)
+    print('reuest data',request.data)
+    print(serializer.data)
+    print('uploaded image')
+    print(product.image)
+    return Response(serializer.data)
