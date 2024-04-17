@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Rating from './Rating'
 import '../CSS/glowBtn.css'
-import '../CSS/product.css'
+import '../CSS/Home.css'
 
 
 export default function Product({ product }) {
@@ -18,24 +18,9 @@ export default function Product({ product }) {
         aspectRatio: '3/2'
     }
 
-    const cartStyle = {
-        margin: '12px',
-        width: '15rem',
-        maxWidth: '15rem',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        maxHeight:'25rem',
-       // width: 'calc(33.33% - 10px)', // Adjust width and margin to fit your layout
-        marginBottom: '20px',
-        backgroundColor:'#171717',
-        color:'white'
-
-    };
-
-
     return (
 
-        <Card className='my-1 p-3 rounded' style={cartStyle}  >
+        <Card className='my-1 p-3 rounded cardStyle'>
             <Link to={`/Product/${product._id}`}>
                 <Card.Img className='CardImg' src={url + product.image} alt={product.name} style={imgStyle} loading='lazy' />
             </Link>

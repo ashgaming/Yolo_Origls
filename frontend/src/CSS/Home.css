@@ -1,0 +1,114 @@
+.gridview {
+    /**
+    grid-template-columns: repeat(4, 1fr);
+    */
+    width: 98vw;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(15rem, auto));
+    grid-gap: 2px;
+    padding: 2px;
+    overflow: hidden;
+    overflow-x: hidden;
+    justify-items: center;
+    align-items: center;
+}
+
+.CardImg {
+    /* transform: linear; */
+    border: 2px solid #00bfff;
+    border-radius: 10px;
+    background-color: #f8f8f8;
+    animation: glow 1s infinite alternate;
+  
+  }
+  
+  .CardImg:hover {
+    scale: 1.1;
+  }
+  
+  @keyframes glow {
+    0% {
+      box-shadow: 0 0 0px #fff, 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #00bfff, 0 0 6px #00bfff, 0 0 7px #00bfff, 0 0 9px #00bfff, 0 0 15px #00bfff;
+    }
+  
+    100% {
+      box-shadow: 0 0 10px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #00bfff, 0 0 7px #00bfff, 0 0 8px #00bfff, 0 0 10px #00bfff, 0 0 15px #00bfff;
+    }
+  }
+  
+  /* Apply the animation */
+  .glowing-border {
+    animation: glow 1s infinite alternate;
+  }
+  
+  /* Additional styling for the div */
+  .glowing-border {
+    width: 200px;
+    height: 200px;
+    border: 2px solid red;
+    border-radius: 10px;
+  }
+  
+  .cardStyle {
+    margin: 1px;
+    width: 15rem;
+    max-width: 15rem;
+    max-height: 25rem;
+   text-overflow: ellipsis;
+   margin-bottom: 5px;
+   overflow: hidden;
+    background-color: #171717;
+    color: 'white';
+  
+  }
+  
+@media screen and (max-width: 799px) {
+    body{
+        width: 115vw;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+      .gridview {
+        padding: 20px;
+      width: 98%; 
+      grid-template-columns: repeat(auto-fit, minmax(8rem,auto));
+        grid-template-rows: repeat(auto-fit, minmax(10rem,auto));
+        max-height: calc(14rem * 3 + 4px * 2);
+    margin-bottom: 20px;
+
+    
+    }
+
+    .cardStyle{
+        transform: scale(.5);
+        transform-origin: center center;
+      }
+}
+
+@media screen and (min-width: 700px) and (max-width:1200px) {
+    .gridview {     
+      padding: 20px;
+      width: 98%; 
+        grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+        grid-template-rows: repeat(auto-fill, minmax(12rem,auto));
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .gridview {   
+      padding: 20px;
+      width: 98%;  
+        grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); 
+        grid-template-rows: repeat(auto-fill, minmax(25rem,auto));
+   
+    }
+
+    .cardStyle{
+      transform: scale(1);
+      transform-origin: center center;
+    }
+    
+}
+

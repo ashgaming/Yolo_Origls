@@ -4,6 +4,8 @@ import {
     ORDER_PAY_REQUEST, ORDER_PAY_SUCCESS, ORDER_PAY_FAIL, ORDER_PAY_RESET,
     ORDER_LIST_MY_REQUEST, ORDER_LIST_MY_SUCCESS, ORDER_LIST_MY_FAIL,
     ORDER_LIST_REQUEST, ORDER_LIST_SUCCESS, ORDER_LIST_FAIL,
+    ORDER_DELIVERED_REQUEST, ORDER_DELIVERED_SUCCESS,
+    ORDER_DELIVERED_FAIL,
 } from '../Constants/orderConstants'
 import { CART_CLEAR_ITEMS } from '../Constants/CartConstants'
 import axios from 'axios'
@@ -195,6 +197,48 @@ export const listOrders = () => async (dispatch, getState) => {
     catch (error) {
         dispatch({
             type: ORDER_LIST_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        })
+    }
+}
+
+export const deliverOrder = (order) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: ORDER_DELIVERED_REQUEST,
+        })
+
+        const {
+            userLogin: { userInfo },
+        } = getState()
+
+        console.log(userInfo.token)
+
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data } = await axios.put(`http://127.0.0.1:8000/api/orders/${order._id}/deliver/`,{},
+            config)
+
+        dispatch({
+            type: ORDER_DELIVERED_SUCCESS,
+            payload: data
+        })
+        
+
+
+
+
+    }
+    catch (error) {
+        dispatch({
+            type: ORDER_DELIVERED_FAIL,
             payload: error.response && error.response.data.message
                 ? error.response.data.message
                 : error.message

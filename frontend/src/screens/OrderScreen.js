@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col, Image, Card, ListGroup, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../Components/Message'
-import { getOrderDetails, payOrder } from '../Actions/orderAction'
+import { getOrderDetails, payOrder, orderDeliver, deliverOrder } from '../Actions/orderAction'
 import { useParams } from 'react-router-dom'
 import Loader from '../Components/Loader'
-import { ORDER_PAY_RESET } from '../Constants/orderConstants'
+import { ORDER_PAY_RESET, ORDER_DELIVERED_RESET } from '../Constants/orderConstants'
 export default function OrderScreen() {
     const style = {
         height: '50px',
         width: '50px'
     };
+
+    const navigate = useNavigate()
     const { id } = useParams()
     const dispatch = useDispatch()
     const [sdkReady, setSdkReady] = useState(false)
@@ -21,6 +23,14 @@ export default function OrderScreen() {
 
     const orderPay = useSelector(state => state.orderPay)
     const { loading: loadingPay, success: successPay } = orderPay
+
+    const orderDeliver = useSelector(state => state.orderDeliver)
+    const { loading: loadingDeliver, success: successDeliver } = orderDeliver
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
+    console.log(userInfo)
 
     if (!loading && !error) {
         order.itemsPrice = order.OrderItem.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
@@ -41,8 +51,12 @@ export default function OrderScreen() {
 
 
     useEffect(() => {
-        if (!order || successPay || order._id !== Number(id)) {
+        if(!userInfo){
+            navigate('/login')
+        }
+        if (!order || successPay || order._id !== Number(id) || successDeliver) {
             dispatch({ type: ORDER_PAY_RESET })
+            dispatch({ type: ORDER_DELIVERED_RESET })
             dispatch(getOrderDetails(id))
         }
         else if (!order.isPaid) {
@@ -52,17 +66,16 @@ export default function OrderScreen() {
                 setSdkReady(true)
             }
         }
-    }, [id, dispatch, order, successPay])
-    if (order) {
-        console.log(order)
-    }
+    }, [id, dispatch, order, successPay, successDeliver])
+
 
     const paymentHandler = (paymentResult) => {
-        console.log('dispatch')
         dispatch(payOrder(id))
     }
 
-
+    const deliverHandler = () => {
+        dispatch(deliverOrder(order))
+    }
 
     return loading ? (
         <Loader />
@@ -130,17 +143,19 @@ export default function OrderScreen() {
                                                 <ListGroup.Item>
                                                     {order.OrderItem.map((item, index) => (
                                                         <ListGroup.Item key={index}>
-                                                            <Row >
-                                                                <Col>
-                                                                    <Image src={'http://127.0.0.1:8000/static' + item.image} style={style} alt={item.name} fluid rounded />
-                                                                </Col>
-                                                                <Col>
-                                                                    <Link to={`/product/${item.product}`} >{item.name} </Link>
-                                                                </Col>
-                                                                <Col md={4}>
-                                                                    {item.qty} X Rs{item.price} = {(item.qty * item.price).toFixed(2)}
-                                                                </Col>
-                                                            </Row>
+                                                            {order.isDelivered &&
+                                                                <Row >
+                                                                    <Col>
+                                                                        <Image src={'http://127.0.0.1:8000/static' + item.image} style={style} alt={item.name} fluid rounded />
+                                                                    </Col>
+                                                                    <Col>
+                                                                        <Link to={`/product/${item.product}`} >{item.name} </Link>
+                                                                    </Col>
+                                                                    <Col md={4}>
+                                                                        {item.qty} X Rs{item.price} = {(item.qty * item.price).toFixed(2)}
+                                                                    </Col>
+                                                                </Row>
+                                                            }
                                                         </ListGroup.Item>
                                                     ))}
                                                 </ListGroup.Item>
@@ -203,6 +218,20 @@ export default function OrderScreen() {
                                     )}
 
                                 </ListGroup>
+                                {loadingDeliver && <Loader />}
+                                {
+                                    userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                                        <ListGroup.Item>
+                                            <Button
+                                                type='button'
+                                                style={{ margin: '25px' }}
+                                                onClick={deliverHandler}
+                                            >
+                                                Mark as Delivered
+                                            </Button>
+                                        </ListGroup.Item>
+                                    )
+                                }
                             </Card>
                         </Col>
                     </Row>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, redirect, useParams } from 'react-router-dom'
-import { Form, Button, Image, Container, Col,Row } from 'react-bootstrap'
+import { Form, Button, Image, Container, Col, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from "react-redux";
 import Message from '../Components/Message'
 import Loader from '../Components/Loader'
@@ -20,14 +20,17 @@ export default function ProductEditScreen() {
     const url = 'http://127.0.0.1:8000/';
     const src = url + 'static';
 
-    const [productPreview,setProductPreview] = useState('')
+    const [productPreview, setProductPreview] = useState('')
     const [pid, setId] = useState(id)
     const [name, setname] = useState('')
     const [price, setPrice] = useState('')
+    const [orinalPrice, setOrinalPrice] = useState('')
     const [category, setCategory] = useState('')
     const [image, setImage] = useState('')
+    const [galary, setGalary] = useState('')
     const [brand, setBrand] = useState('')
     const [description, setDesription] = useState('')
+    const [shortDescription, setShortDesription] = useState('')
     const [stock, setStock] = useState(0)
     const [uploading, setUploading] = useState(false)
     const dispatch = useDispatch()
@@ -54,17 +57,19 @@ export default function ProductEditScreen() {
                 setBrand(product.brand)
                 setCategory(product.category)
                 setDesription(product.description)
+                setShortDesription(product.shortDescription)
                 setPrice(product.price)
+                setOrinalPrice(product.originalPrice)
                 setStock(product.countInStock)
-                
+
                 setProductPreview({
-                    name:name,
-                    image:image,
-                    brand:brand,
-                    category:category,
-                    description:description,
-                    price:price,
-                    countInStock:stock,
+                    name: name,
+                    image: image,
+                    brand: brand,
+                    category: category,
+                    description: description,
+                    price: price,
+                    countInStock: stock,
                 })
             }
 
@@ -86,19 +91,32 @@ export default function ProductEditScreen() {
 
     }
 
-  //  useEffect(()=>{
-  //      setProductPreview({
-  //          name:name,
-  //          image:image,
-  //          brand:brand,
-  //          category:category,
-  //          description:description,
-  //          price:price,
-  //          countInStock:stock,
-  //      })
-  //  },[image])
 
     const uploadFileHandler = async (e) => {
+        setImage(e.target.files[0])
+        const file = e.target.files[0]
+        const formData = new FormData()
+
+        formData.append('image', file)
+        formData.append('product_id', id)
+
+        setUploading(true)
+
+        try {
+            const config = {
+                headers: {
+                    'Content-type': 'multipart/form-data'
+                }
+            }
+            const { data } = await axios.post(url + 'api/products/upload/', formData, config)
+            setImage(data.image)
+            setUploading(false)
+        } catch (error) {
+            setUploading(false)
+        }
+    }
+
+    const uploadGalaryHandler = async (e) => {
         setImage(e.target.files[0])
         const file = e.target.files[0]
         const formData = new FormData()
@@ -126,105 +144,148 @@ export default function ProductEditScreen() {
             <Link to='/admin/productlist'>
                 Go Back
             </Link>
-                    <FormContainer product={productPreview}>
-                        <h1>Edit Product</h1>
-                        {loadingUpdate ? <Loader /> : errorUpdate && <Message varient='danger' text={error}></Message>}
-                        <h1>ID : {pid}</h1>
-                        {errorUpdate && <Message varient='danger' text={errorUpdate}>{errorUpdate}</Message>}
-                        {loading ? <Loader /> : error ? <Message varient='danger' text={error}></Message> : (
-                            <Form onSubmit={submitHandler}>
+            <FormContainer product={productPreview}>
+                <h1>Edit Product</h1>
+                {loadingUpdate ? <Loader /> : errorUpdate && <Message varient='danger' text={error}></Message>}
+                <h1>ID : {pid}</h1>
+                {errorUpdate && <Message varient='danger' text={errorUpdate}>{errorUpdate}</Message>}
+                {loading ? <Loader /> : error ? <Message varient='danger' text={error}></Message> : (
+                    <Form onSubmit={submitHandler}>
 
-                                {image !== null && (<Image
-                                    width='100%'
-                                    height='200px'
-                                    src={src + image.toString()}
-                                    alt={product.name}
+                        <Form.Group controlId='name'>
+                            <Form.Label>Enter Name</Form.Label>
+                            <Form.Control type='text'
+                                placeholder='Enter name'
+                                value={name}
+                                onChange={(e) => setname(e.target.value)}
+                                required
+                            ></Form.Control>
+                        </Form.Group>
+
+                        {uploading && <Loader />}
+
+
+
+
+                        <Form.Group controlId='description'>
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control
+                                type='text'
+                                placeholder='Description'
+                                required
+                                value={description}
+                                onChange={(e) => {
+                                    setDesription(e.target.value)
+                                }}
+                            >
+                            </Form.Control>
+                        </Form.Group>
+
+                        <Form.Group controlId='shortDescription'>
+                            <Form.Label>Short Description</Form.Label>
+                            <Form.Control
+                                type='text'
+                                placeholder='Short Description'
+                                required
+                                value={shortDescription}
+                                onChange={(e) => {
+                                    setShortDesription(e.target.value)
+                                }}
+                            >
+                            </Form.Control>
+                        </Form.Group>
+
+                        <Form.Group controlId='category'>
+                            <Form.Label>Category</Form.Label>
+                            <Form.Control type='text'
+                                placeholder='category'
+                                required
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}></Form.Control>
+                        </Form.Group>
+
+                        <Form.Group controlId='brand'>
+                            <Form.Label>brand</Form.Label>
+                            <Form.Control type='text'
+                                placeholder='brand'
+                                required
+                                value={brand}
+                                onChange={(e) => setBrand(e.target.value)}></Form.Control>
+                        </Form.Group>
+
+                        <Form.Group controlId='price'>
+                            <Form.Label>Price</Form.Label>
+                            <Form.Control type='number'
+                                required
+                                placeholder='0'
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}></Form.Control>
+                        </Form.Group>
+
+                        <Form.Group controlId='originalPrice'>
+                            <Form.Label>Real Price</Form.Label>
+                            <Form.Control type='number'
+                                required
+                                placeholder='0'
+                                value={orinalPrice}
+                                onChange={(e) => setOrinalPrice(e.target.value)}></Form.Control>
+                        </Form.Group>
+
+                        <Form.Group controlId='countInStock'>
+                            <Form.Label>Stock</Form.Label>
+                            <Form.Control type='text'
+                                placeholder='stock'
+                                required
+                                value={stock}
+                                onChange={(e) => setStock(e.target.value)}></Form.Control>
+                        </Form.Group>
+
+                        <br />
+                            {image !== null && (<Image
+                                width='100%'
+                                height='200px'
+                                src={src + image.toString()}
+                                alt={product.name}
                                 />)
+                            }
+                            <Form.Label>Enter image</Form.Label>
+                            <Form.Group controlId='image'>
+                            <Form.Control
+                                type='file'
+                                placeholder='Enter Image'
+                                src={image}
+                                onChange={(e) => uploadFileHandler(e)}
+                            >
 
-                                }
+                            </Form.Control>
 
-                                <Form.Group controlId='name'>
-                                    <Form.Label>Enter Name</Form.Label>
-                                    <Form.Control type='text'
-                                        placeholder='Enter name'
-                                        value={name}
-                                        onChange={(e) => setname(e.target.value)}
-                                        required
-                                    ></Form.Control>
-                                </Form.Group>
-
-                                {uploading && <Loader />}
-
-                                <Form.Group controlId='image'>
-                                    <Form.Label>Enter image</Form.Label>
-                                    <Form.Control
-                                        type='file'
-                                        placeholder='Enter Image'
-                                        src={image}
-                                        onChange={(e) => uploadFileHandler(e)}
-                                    >
-
-                                    </Form.Control>
-
-                                </Form.Group>
+                        </Form.Group>
 
 
-                                <Form.Group controlId='description'>
-                                    <Form.Label>Description</Form.Label>
-                                    <Form.Control
-                                        type='text'
-                                        placeholder='Description'
-                                        required
-                                        value={description}
-                                        onChange={(e) => {
-                                            setDesription(e.target.value)
-                                        }}
-                                    >
-                                    </Form.Control>
-                                </Form.Group>
+                        {galary !== null && (<Image
+                                width='100%'
+                                height='200px'
+                                src={src + galary.toString()}
+                                alt={product.name}
+                                />)
+                            }
+                        <Form.Group controlId='galary'>
+                            <Form.Label>Enter Galary</Form.Label>
+                            <Form.Control
+                                type='files'
+                                placeholder='Enter galary Images'
+                                src={galary}
+                                onChange={(e) => uploadGalaryHandler(e)}
+                            >
 
-                                <Form.Group controlId='category'>
-                                    <Form.Label>Category</Form.Label>
-                                    <Form.Control type='text'
-                                        placeholder='category'
-                                        required
-                                        value={category}
-                                        onChange={(e) => setCategory(e.target.value)}></Form.Control>
-                                </Form.Group>
+                            </Form.Control>
 
-                                <Form.Group controlId='brand'>
-                                    <Form.Label>brand</Form.Label>
-                                    <Form.Control type='text'
-                                        placeholder='brand'
-                                        required
-                                        value={brand}
-                                        onChange={(e) => setBrand(e.target.value)}></Form.Control>
-                                </Form.Group>
-
-                                <Form.Group controlId='price'>
-                                    <Form.Label>Price</Form.Label>
-                                    <Form.Control type='number'
-                                        required
-                                        placeholder='0'
-                                        value={price}
-                                        onChange={(e) => setPrice(e.target.value)}></Form.Control>
-                                </Form.Group>
-
-                                <Form.Group controlId='countInStock'>
-                                    <Form.Label>Stock</Form.Label>
-                                    <Form.Control type='text'
-                                        placeholder='stock'
-                                        required
-                                        value={stock}
-                                        onChange={(e) => setStock(e.target.value)}></Form.Control>
-                                </Form.Group>
-
-                                <Button type='submit' varient='primary' style={{ marginTop: '20px', marginBottom: '50px' }}>Update</Button>
-
-                            </Form>
-                        )
-                        }
-                    </FormContainer>
+                        </Form.Group>
+                        <Button type='submit' varient='primary' style={{ marginTop: '20px', marginBottom: '50px' }}>Update</Button>
+                    </Form>
+                )
+                }
+            </FormContainer>
         </div>
     )
 }

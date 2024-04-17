@@ -98,6 +98,7 @@ def updateOrderToPaid(request,pk):
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
+@permission_classes([IsAdminUser])
 def updateOrderToDelivered(request,pk):
     order = Order.objects.get(_id=pk)
     order.isDelivered = True

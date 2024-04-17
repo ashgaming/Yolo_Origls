@@ -1,58 +1,52 @@
-import React, {useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Row, Col, Container } from 'react-bootstrap'
 import Product from '../Components/Product'
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../Actions/productActions";
 import Loader from '../Components/Loader';
 import Message from '../Components/Message';
+import SearchBar from '../Components/SearchBar';
+import { useLocation } from 'react-router-dom';
+import '../CSS/Home.css'
 
 
 export default function HomeScreen() {
   const dispatch = useDispatch()
   const productList = useSelector(state => state.productlist)
   const { error, loading, products } = productList
-  const containerStyle = {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between', // Adjust alignment as needed
-    alignItems:'center',
-  };
+  const location = useLocation()
+  let keyword = location.search
 
-  const gridview = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(14rem, 1fr))',
-    gap: '20px',
-  }
   useEffect(() => {
-    try{
-      dispatch(listProducts())
-    }catch(e)
-    {
+    try {
+      dispatch(listProducts(keyword))
+    } catch (e) {
       console.log(e)
     }
-  }, [dispatch])
+  }, [dispatch, keyword])
   return (
     <div>
-      
-        <h1>Latest Products</h1>
-      <Row>
-      {
-        loading ?<Loader />
-        : error? <Message varient={'danger'} text={error}></Message>
-        :
-         <>
-        
-        <div style={gridview}>
+      <SearchBar />
 
+      <h1>Latest Products</h1>
+      {keyword}
+      <Row>
         {
-          products.map(product => (
-            <Product product={product} />
-            ))
-            
-          }
-          </div>
-          </>
-}
+          loading ? <Loader />
+            : error ? <Message varient={'danger'} text={error}></Message>
+              :
+              <>
+             <div className='gridview'>
+                  {
+                    products.map(product => (
+                      
+                    <Product product={product} key={product._id}/>
+                      
+                    ))
+                  }
+                </div>
+              </>
+        }
       </Row>
     </div>
   )
