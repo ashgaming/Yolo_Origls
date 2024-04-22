@@ -11,15 +11,12 @@ export default function PaymentScreen() {
   
   const cart = useSelector(state=>state.cart)
   const {shippingAddress} = cart
-  console.log('shi',cart)
   useEffect(()=>{
     if(!shippingAddress.addr){
       history('/shipping')
     }
   },[history,shippingAddress])
     
-  console.log('shippinng:',shippingAddress.addr)
-
   const dispatch = useDispatch()
   const [paymentMethod,setPaymentMethod] = useState('GooglePay')
   

@@ -33,9 +33,7 @@ export default function ProfileScreen() {
 
     const myorderlist = useSelector(state => state.myorderlist)
     const { loading: loadingOrders, error: errorOrder, orders } = myorderlist
-    console.log(user.password)
 
-    console.log(user)
     useEffect(() => {
         if (!userInfo) {
             history('/login')
@@ -139,8 +137,8 @@ export default function ProfileScreen() {
                                     <thead>
                                 <tr>
 
-                                        {titleList.map((title) => (
-                                            <th>{title}</th>
+                                        {titleList.map((title,i) => (
+                                            <th key={i}>{title}</th>
                                             ))}
                                             </tr>
 
@@ -155,7 +153,12 @@ export default function ProfileScreen() {
                                                     <td>{order.isPaid ? order.paidAT.substring(0, 10) : (
                                                         <i className='fas fa-times' style={{ color: 'red' }}>-</i>
                                                     )} </td>
-                                                    <td>Not Delelivered</td>
+                                                    <td>
+                                                    {order.isDelivered ? order.deliveredAt.substring(0, 10) : (
+                                                        <i className='fas fa-times' style={{ color: 'red' }}>Not Delelivered</i>
+                                                    )}
+                                                        
+                                                    </td>
                                                     <td>
                                                         <LinkContainer to={`/order/${order._id}`}>
                                                             <Button className='btn-sm' style={{

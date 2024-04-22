@@ -10,15 +10,17 @@ export default function SearchBar() {
     const submitHandler = (e) => {
         e.preventDefault()
         if(keyword){
-            navigate(`/?keyword=${keyword}`)
+            navigate(`/?keyword=${keyword}&page=1`)
         }else{
             navigate(pathname)
         }
 
     }
     return (
-        <div className='searchContainer'>
-
+        <div>
+            <h1 style={{
+                justifySelf:'left'
+            }}>Search Products</h1>
         <Form onSubmit={submitHandler} className='searchContainer'>
             <Form.Control
                 type='text'

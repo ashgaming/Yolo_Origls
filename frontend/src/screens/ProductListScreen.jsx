@@ -6,15 +6,19 @@ import Message from '../Components/Message'
 import Loader from '../Components/Loader'
 import { deleteProduct, listProducts, createProduct, } from '../Actions/productActions';
 import '../CSS/userlist.css'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { PRODUCT_CREATE_RESET } from '../Constants/productConstants';
+import Paginate from '../Components/Paginate';
 
 export default function ProductListScreen() {
     const src = 'http://127.0.0.1:8000/static'
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const location = useLocation()
+    let keyword = location.search
+    
     const productlist = useSelector(state => state.productlist)
-    const { loading, error, products } = productlist
+    const { loading, error, products,page,pages } = productlist
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
@@ -23,21 +27,21 @@ export default function ProductListScreen() {
     const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
 
     const productCreate = useSelector(state => state.productCreate)
-    const { loading: loadingCreate, error: errorCreate, success: successCreate ,product:createdProduct } = productCreate
+    const { loading: loadingCreate, error: errorCreate, success: successCreate, product: createdProduct } = productCreate
 
     useEffect(() => {
-        dispatch({type:PRODUCT_CREATE_RESET})
+        dispatch({ type: PRODUCT_CREATE_RESET })
 
         if (!userInfo.isAdmin) {
             navigate('/login')
         }
 
-        if(successCreate){
+        if (successCreate) {
             navigate(`/admin/product/${createdProduct._id}/edit`)
-        }else{
-            dispatch(listProducts())
+        } else {
+            dispatch(listProducts(keyword))
         }
-    }, [dispatch, navigate, userInfo, successDelete,successCreate])
+    }, [dispatch, navigate, userInfo, successDelete, successCreate,keyword])
 
     const deleteHandler = (id) => {
         if (window.confirm('Are you sure want to delete product')) {
@@ -71,6 +75,7 @@ export default function ProductListScreen() {
                 loading ? (<Loader />) :
                     error ? (<Message varient='danger' text={error}></Message>) :
                         (
+                            <div>
                             <Table striped bordered hover responsive className='table-sm'>
                                 <thead>
                                     {
@@ -83,7 +88,7 @@ export default function ProductListScreen() {
                                 </thead>
                                 <tbody>
                                     {products.map((product, index) => (
-                                        
+
                                         <tr key={product._id} >
                                             <td>{index + 1}</td>
                                             <td>41435{product._id}</td>
@@ -96,14 +101,14 @@ export default function ProductListScreen() {
                                                 />
                                             </td>
 
-                                           
+
                                             <td>{product.name}</td>
                                             <td>{product.price}</td>
                                             <td>{product.category}</td>
                                             <td>{product.brand}</td>
                                             <td style={{
-                                            color: product.countInStock === 0 ? 'red' : 'green'
-                                        }}>{product.countInStock}</td>
+                                                color: product.countInStock === 0 ? 'red' : 'green'
+                                            }}>{product.countInStock}</td>
                                             <td>
                                                 <LinkContainer to={`/admin/product/${product._id}/edit`}>
                                                     <Button varient='danger' className='btn-sm m-1'>
@@ -123,9 +128,9 @@ export default function ProductListScreen() {
                                     ))}
                                 </tbody>
                             </Table>
+                            <Paginate page={page} pages={pages} keyword={keyword} isAdmin={true}/>
 
-
-
+                                    </div>
                         )}
         </div>
     )

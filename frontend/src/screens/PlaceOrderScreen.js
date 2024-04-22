@@ -20,15 +20,12 @@ export default function PlaceOrderScreen() {
     const { order, success, error } = orderCreate
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
-    console.log('cart', cart)
-
 
     cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
     cart.shippingPrice = (cart.itemsPrice > 100 ? 0 : 10).toFixed(2)
     cart.taxPrice = ((0.002) * cart.itemsPrice).toFixed(2)
     cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.taxPrice) + Number(cart.shippingPrice)).toFixed(2)
 
-    console.log('pay', cart.paymentMethod)
     if (!cart.paymentMethod) {
         history('/payment')
     }

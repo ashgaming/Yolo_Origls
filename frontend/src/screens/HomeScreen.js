@@ -8,12 +8,13 @@ import Message from '../Components/Message';
 import SearchBar from '../Components/SearchBar';
 import { useLocation } from 'react-router-dom';
 import '../CSS/Home.css'
+import Paginate from '../Components/Paginate';
 
 
 export default function HomeScreen() {
   const dispatch = useDispatch()
   const productList = useSelector(state => state.productlist)
-  const { error, loading, products } = productList
+  const { error, loading, products,page,pages } = productList
   const location = useLocation()
   let keyword = location.search
 
@@ -21,7 +22,7 @@ export default function HomeScreen() {
     try {
       dispatch(listProducts(keyword))
     } catch (e) {
-      console.log(e)
+      alert(e)
     }
   }, [dispatch, keyword])
   return (
@@ -29,22 +30,29 @@ export default function HomeScreen() {
       <SearchBar />
 
       <h1>Latest Products</h1>
-      {keyword}
+
       <Row>
         {
           loading ? <Loader />
             : error ? <Message varient={'danger'} text={error}></Message>
               :
               <>
-             <div className='gridview'>
+                <div className='gridview'>
                   {
-                    products.map(product => (
-                      
-                    <Product product={product} key={product._id}/>
-                      
-                    ))
+                    products.length === 0 ? ('Product not found') : (
+
+                      products.map(product => (
+
+                        <Product product={product} key={product._id} />
+
+                      ))
+
+                    )
                   }
+                
                 </div>
+                <Paginate pages={pages} page={page} keyword={keyword} />
+
               </>
         }
       </Row>

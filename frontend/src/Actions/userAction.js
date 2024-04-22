@@ -165,7 +165,6 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
              userLogin: { userInfo },
              } = getState()
 
-             console.log(userInfo.token)
 
         const config = {
             headers: {
@@ -208,7 +207,6 @@ export const listUsers = () => async (dispatch, getState) => {
              userLogin: { userInfo },
              } = getState()
 
-             console.log(userInfo.token)
 
         const config = {
             headers: {
@@ -246,7 +244,6 @@ export const deleteUsers = (id) => async (dispatch, getState) => {
              userLogin: { userInfo },
              } = getState()
 
-             console.log(userInfo.token)
 
         const config = {
             headers: {
@@ -284,7 +281,6 @@ export const updateUsers = (user) => async (dispatch, getState) => {
              userLogin: { userInfo },
              } = getState()
 
-             console.log(userInfo.token)
 
         const config = {
             headers: {
@@ -293,7 +289,6 @@ export const updateUsers = (user) => async (dispatch, getState) => {
             }
         }
 
-        console.log('user',user)
 
         const { data } = await axios.put(`http://127.0.0.1:8000/api/users/update/${user._id}/`,user,
             config)

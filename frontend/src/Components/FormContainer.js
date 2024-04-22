@@ -9,17 +9,6 @@ export default function FormContainer({ children, product }) {
         <Col xs={12} md={6}>
           {children}
         </Col>
-        {
-          /*
-        <Col xs={12} md={6} style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-        
-          <Product product={product} />
-        </Col>
-        */}  
       </Row>
     </Container>
   )

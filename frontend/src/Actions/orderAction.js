@@ -99,8 +99,6 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
             userLogin: { userInfo },
         } = getState()
 
-        console.log(userInfo.token)
-
         const config = {
             headers: {
                 'Content-type': 'application/json',
@@ -214,7 +212,6 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
             userLogin: { userInfo },
         } = getState()
 
-        console.log(userInfo.token)
 
         const config = {
             headers: {

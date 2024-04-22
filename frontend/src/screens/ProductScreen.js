@@ -61,9 +61,6 @@ export default function ProductScreen() {
                 <button className='btn btn-light my-3'>Go Back</button>
               </Link>
               <div className='ProductScreen' style={{ padding: '50px' }}>
-
-
-
                 <Row >
                   <Col margin={'2px'}>
                     {!loading && <Image src={"http://127.0.0.1:8000/static" + product.image} alt={product.name} style={{ Width: '10rem', height: '30rem', aspectRatio: '3/2', padding: '10px' }} fluid />}
@@ -82,7 +79,7 @@ export default function ProductScreen() {
                         Price : Rs{product.price}/-
                       </ListGroup.Item>
                       <ListGroup.Item>
-                        Original Price : Rs{product.originalprice}/-
+                        Original Price : Rs{product.originalPrice}/-
                       </ListGroup.Item>
 
                       <ListGroup.Item>

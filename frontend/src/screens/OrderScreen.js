@@ -30,8 +30,6 @@ export default function OrderScreen() {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
-    console.log(userInfo)
-
     if (!loading && !error) {
         order.itemsPrice = order.OrderItem.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
     }
@@ -42,16 +40,14 @@ export default function OrderScreen() {
         script.async = true
         script.onload = () => {
             setSdkReady(true)
-            console.log('pay button loaded by cdn link')
         }
         setSdkReady(true)
-        console.log('pay button loaded by forcefully')
         document.body.appendChild(script)
     }
 
 
     useEffect(() => {
-        if(!userInfo){
+        if (!userInfo) {
             navigate('/login')
         }
         if (!order || successPay || order._id !== Number(id) || successDeliver) {
@@ -143,7 +139,7 @@ export default function OrderScreen() {
                                                 <ListGroup.Item>
                                                     {order.OrderItem.map((item, index) => (
                                                         <ListGroup.Item key={index}>
-                                                            {order.isDelivered &&
+                                                            {order &&
                                                                 <Row >
                                                                     <Col>
                                                                         <Image src={'http://127.0.0.1:8000/static' + item.image} style={style} alt={item.name} fluid rounded />
@@ -220,7 +216,7 @@ export default function OrderScreen() {
                                 </ListGroup>
                                 {loadingDeliver && <Loader />}
                                 {
-                                    userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                                    userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered ? (
                                         <ListGroup.Item>
                                             <Button
                                                 type='button'
@@ -231,7 +227,23 @@ export default function OrderScreen() {
                                             </Button>
                                         </ListGroup.Item>
                                     )
+                                        :
+                                        (
+                                            <ListGroup.Item>
+                                                <Link
+                                                to='/'
+                                                >
+                                                    <Button
+                                                        type='button'
+                                                        style={{ margin: '25px' }}
+                                                    >
+                                                        Back
+                                                    </Button>
+                                                </Link>
+                                            </ListGroup.Item>
+                                        )
                                 }
+
                             </Card>
                         </Col>
                     </Row>

@@ -63,7 +63,6 @@ function App() {
           <Route path='/admin/user/:id/edit' Component={UserEditScreen} />
           <Route path='/admin/product/:id/edit' Component={ProductEditScreen} />
         </Routes>
-      <Footer />
       </Router>
 
     </div>

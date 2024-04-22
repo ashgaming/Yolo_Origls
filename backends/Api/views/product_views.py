@@ -3,6 +3,10 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view , permission_classes
 from rest_framework.permissions import IsAuthenticated , IsAdminUser
 from rest_framework_simplejwt.tokens import Token
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.db.models import F, functions
+
+
 from Api.models import Product , Review
 from Api.serializer import ProductSerializer,ProductImageSerializer
 from rest_framework import status
@@ -21,8 +25,34 @@ def getProducts(request):
     
  #   products = Product.objects.all()
     products = Product.objects.filter(name__icontains=query)
+
+    products = products.annotate(random_order=functions.Random()).order_by('random_order')
+
+    page = request.query_params.get('page')
+    paginator = Paginator(products,12)
+
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except PageNotAnInteger:
+        products = paginator.page(paginator.num_pages)
+    
+    if(page ==None):
+        page=1
+
+    page=int(page)
+        
+
+    serializer = ProductSerializer(products,many=True)
+    return Response({'products':serializer.data,'page':page,'pages':paginator.num_pages})
+
+@api_view(['GET'])
+def getTopProducts(request):
+    products = Product.objects.filter(rating__gte=4).order_by('-rating')[0:5]
     serializer = ProductSerializer(products,many=True)
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
@@ -51,9 +81,10 @@ def updateProduct(request,pk):
     data = request.data
     print(data)
     product = Product.objects.get(_id=pk)
+    product.lastImage = product.image
     product.name = data['name']
     product.price = data['price']
-    product.originalPrice = data['originalPrice']
+    product.originalPrice = data['orignalPrice']
     product.brand = data['brand']
     product.countInStock = data['countInStock']
     product.category = data['category']
@@ -65,7 +96,21 @@ def updateProduct(request,pk):
     product.save()
     serializer = ProductSerializer(product,many=False)
     return Response(serializer.data)
-    
+
+@api_view(['PUT','POST'])
+def setPreviewImage(request):
+    data = request.data
+    print('data',data)
+    product_id = data['product_id']
+    product = Product.objects.get(_id=product_id)
+    if product.lastImage:
+        image = product.image
+        product.image = product.lastImage
+        product.lastImage = image
+        serializer = ProductImageSerializer(product,many=False)
+        return Response(serializer.data)
+    else:
+        return Response({'image':product.image,'details':'last image not available'})
 
 @api_view(['DELETE'])
 @permission_classes([IsAdminUser])
@@ -81,6 +126,7 @@ def uploadImage(request):
     product_id = data['product_id']
     product = Product.objects.get(_id=product_id)
 
+    product.lastImage = product.image
     product.image = request.FILES.get('image')
     product.save()
     serializer = ProductImageSerializer(product,many=False)
@@ -93,11 +139,11 @@ def uploadGalary(request):
     product_id = data['product_id']
     product = Product.objects.get(_id=product_id)
 
-    product.galary = request.FILES.get('image')
+    product.galary = request.FILES.get('galary')
     product.save()
-    print(product.galary)
     serializer = ProductImageSerializer(product,many=False)
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])

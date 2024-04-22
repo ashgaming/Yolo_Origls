@@ -13,14 +13,12 @@ export const cartReducer = (state ={cartItems:[],Shipping_Address:{}},action)=>{
             const existItem = state.cartItems.find(x=>x.product === item.product)
             
             if(existItem!==undefined){
-                console.log('existItem if',existItem)
                 return {
                     ...state,
                     cartItems:state.cartItems.map(x=>x.product === JSON.parse(existItem.product) ? item : x
                     )
                 }
             }else{
-                console.log('existItem else',[...state.cartItems,item])
                 return {
                     ...state,
                     cartItems:[...state.cartItems,item]

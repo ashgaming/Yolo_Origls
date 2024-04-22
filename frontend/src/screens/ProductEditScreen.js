@@ -24,7 +24,7 @@ export default function ProductEditScreen() {
     const [pid, setId] = useState(id)
     const [name, setname] = useState('')
     const [price, setPrice] = useState('')
-    const [orinalPrice, setOrinalPrice] = useState('')
+    const [orignalPrice, setOrinalPrice] = useState('')
     const [category, setCategory] = useState('')
     const [image, setImage] = useState('')
     const [galary, setGalary] = useState('')
@@ -33,6 +33,7 @@ export default function ProductEditScreen() {
     const [shortDescription, setShortDesription] = useState('')
     const [stock, setStock] = useState(0)
     const [uploading, setUploading] = useState(false)
+    const [galaryUploading, setGalaryUploading] = useState(false)
     const dispatch = useDispatch()
 
     const productDetails = useSelector(state => state.productDetails)
@@ -68,8 +69,11 @@ export default function ProductEditScreen() {
                     brand: brand,
                     category: category,
                     description: description,
+                    shortDescription: shortDescription,
                     price: price,
+                    orignalPrice:orignalPrice,
                     countInStock: stock,
+                    galary:galary,
                 })
             }
 
@@ -85,6 +89,9 @@ export default function ProductEditScreen() {
             image,
             brand,
             category,
+            shortDescription,
+            galary,
+            orignalPrice,
             description,
             countInStock: stock,
         }))
@@ -95,8 +102,8 @@ export default function ProductEditScreen() {
     const uploadFileHandler = async (e) => {
         setImage(e.target.files[0])
         const file = e.target.files[0]
-        const formData = new FormData()
 
+        const formData = new FormData()
         formData.append('image', file)
         formData.append('product_id', id)
 
@@ -117,14 +124,13 @@ export default function ProductEditScreen() {
     }
 
     const uploadGalaryHandler = async (e) => {
-        setImage(e.target.files[0])
+        setGalary(e.target.files[0])
         const file = e.target.files[0]
         const formData = new FormData()
-
-        formData.append('image', file)
+       // file.map(()=>formData.append('galary', file[0]))
+        formData.append('galary', id)
         formData.append('product_id', id)
-
-        setUploading(true)
+        setGalaryUploading(true)
 
         try {
             const config = {
@@ -132,13 +138,34 @@ export default function ProductEditScreen() {
                     'Content-type': 'multipart/form-data'
                 }
             }
-            const { data } = await axios.post(url + 'api/products/upload/', formData, config)
-            setImage(data.image)
-            setUploading(false)
+            const { data } = await axios.post(url + 'api/products/upload/galary/', formData, config)
+            setGalary(data.image)
+            setGalaryUploading(false)
         } catch (error) {
-            setUploading(false)
+            setGalaryUploading(false)
         }
     }
+
+    const getLastImage = async (e) => {
+        const formData = new FormData()
+        formData.append('product_id', id)
+
+        try {
+            const config = {
+                headers: {
+                    'Content-type': 'multipart/form-data'
+
+                }
+            }
+            const { data } = await axios.put(url + 'api/products/upload/previous/', formData,config)
+            setImage(data.image)
+            
+        } catch (error) {
+            alert(e)
+        }
+    }
+
+
     return (
         <div >
             <Link to='/admin/productlist'>
@@ -227,7 +254,7 @@ export default function ProductEditScreen() {
                             <Form.Control type='number'
                                 required
                                 placeholder='0'
-                                value={orinalPrice}
+                                value={orignalPrice}
                                 onChange={(e) => setOrinalPrice(e.target.value)}></Form.Control>
                         </Form.Group>
 
@@ -260,6 +287,9 @@ export default function ProductEditScreen() {
                             </Form.Control>
 
                         </Form.Group>
+                        <Button type='button'
+                        onClick={getLastImage}
+                        varient='primary' style={{ marginTop: '20px', marginBottom: '50px' }}>Last Image</Button>
 
 
                         {galary !== null && (<Image
