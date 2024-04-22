@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated , IsAdminUser
 from rest_framework_simplejwt.tokens import Token
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.db.models import F, functions
+from django.db.models import Q
 
 
 from Api.models import Product , Review
@@ -24,7 +25,8 @@ def getProducts(request):
         query=''
     
  #   products = Product.objects.all()
-    products = Product.objects.filter(name__icontains=query)
+   # products = Product.objects.filter(name__icontains=query)
+    products = Product.objects.filter(Q(name__icontains=query) | Q(category__icontains=query) | Q(brand__icontains=query))
 
     products = products.annotate(random_order=functions.Random()).order_by('random_order')
 

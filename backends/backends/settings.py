@@ -134,8 +134,12 @@ WSGI_APPLICATION = 'backends.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'detroit_watch',
+        'USER':'postgres',
+        'PASSWORD':'Wtya@7645',
+        'HOST':'localhost',
+        'POST':'5432'
     }
 }
 

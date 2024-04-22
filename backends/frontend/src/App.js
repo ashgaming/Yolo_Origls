@@ -2,7 +2,7 @@ import Footer from './Components/Footer';
 import Headers from './Components/Headers';
 import AboutUs from './screens/AboutUs';
 import HomeScreen from './screens/HomeScreen';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
+import{ HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -43,9 +43,7 @@ function App() {
 */}
       <Headers/>
         <Routes>
-         
-
-          <Route path='' element={<HomeScreen />} />
+          <Route path='' element={<HomeScreen />} exact/>
           <Route path='/set' element={<SetTheme />} />
           <Route path='/login' element={<LoginScreen />} />
           <Route path='/payment' element={<PaymentScreen />} />
