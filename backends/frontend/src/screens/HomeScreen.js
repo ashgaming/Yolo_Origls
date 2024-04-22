@@ -9,6 +9,7 @@ import SearchBar from '../Components/SearchBar';
 import { useLocation } from 'react-router-dom';
 import '../CSS/Home.css'
 import Paginate from '../Components/Paginate';
+import ProductCorousel from '../Components/ProductCorousel';
 
 
 export default function HomeScreen() {
@@ -28,7 +29,9 @@ export default function HomeScreen() {
   return (
     <div>
       <SearchBar />
-
+      {!keyword &&
+      <ProductCorousel />
+      }
       <h1>Latest Products</h1>
 
       <Row>

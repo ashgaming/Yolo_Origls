@@ -17,16 +17,15 @@ export default function Headers({ clr, bclr }) {
 
   return (
     <header>
-
       <Navbar bg={'dark'} data-bs-theme={'dark'}>
         <Container>
           <LinkContainer to='/'>
-            <Navbar.Brand >BRAND</Navbar.Brand>
+            <Navbar.Brand >Detroit Watch</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
 
-            <Nav className="me-auto">
+            <Nav className="mr-auto">
               <LinkContainer to='/'>
                 <Nav.Link>Home</Nav.Link>
               </LinkContainer>
