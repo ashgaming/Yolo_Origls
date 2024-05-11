@@ -9,9 +9,10 @@ import '../CSS/userlist.css'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { PRODUCT_CREATE_RESET } from '../Constants/productConstants';
 import Paginate from '../Components/Paginate';
+import { imgUrl as src } from '../Connections/connection'
+
 
 export default function ProductListScreen() {
-    const src = 'http://127.0.0.1:8000/static'
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const location = useLocation()

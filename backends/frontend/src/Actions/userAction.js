@@ -32,6 +32,8 @@ import {
     USER_UPDATE_FAIL,
     USER_UPDATE_RESET,
 } from '../Constants/userConstants'
+import { url } from '../Connections/connection'
+
 
 import  { ORDER_LIST_MY_RESET} from '../Constants/orderConstants'
 
@@ -47,7 +49,7 @@ export const login = (email, password) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post('http://127.0.0.1:8000/api/users/login/',
+        const { data } = await axios.post(url+'/api/users/login/',
             {
                 "username": email, "password": password,
             },
@@ -81,7 +83,7 @@ export const register = (name, username, email, password) => async (dispatch) =>
             }
         }
 
-        const { data } = await axios.post('http://127.0.0.1:8000/api/users/register/',
+        const { data } = await axios.post(url+'/api/users/register/',
             {
                 "name": name, "username": username, "email": email, "password": password,
             },
@@ -112,6 +114,8 @@ export const register = (name, username, email, password) => async (dispatch) =>
 export const logout = () => (dispatch) => {
     localStorage.removeItem('userInfo')
     localStorage.removeItem('cartItems')
+    localStorage.removeItem('shippingAddress')
+    localStorage.removeItem('paymentMethod')
     dispatch({ type: USER_LOGOUT })
     dispatch({ type: USER_DETAILS_RESET })
     dispatch({type:ORDER_LIST_MY_RESET})
@@ -136,7 +140,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.get(`http://127.0.0.1:8000/api/users/${id}/`,
+        const { data } = await axios.get(url+`/api/users/${id}/`,
             config)
 
         dispatch({
@@ -173,7 +177,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.put(`http://127.0.0.1:8000/api/users/profile/update`,user,
+        const { data } = await axios.put(url+`/api/users/profile/update`,user,
             config)
 
         dispatch({
@@ -215,7 +219,7 @@ export const listUsers = () => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.get(`http://127.0.0.1:8000/api/users/`,
+        const { data } = await axios.get(url+`/api/users/`,
             config)
 
 
@@ -252,7 +256,7 @@ export const deleteUsers = (id) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.delete(`http://127.0.0.1:8000/api/users/delete/${id}`,
+        const { data } = await axios.delete(url+`/api/users/delete/${id}`,
             config)
 
 
@@ -290,7 +294,7 @@ export const updateUsers = (user) => async (dispatch, getState) => {
         }
 
 
-        const { data } = await axios.put(`http://127.0.0.1:8000/api/users/update/${user._id}/`,user,
+        const { data } = await axios.put(url+`/api/users/update/${user._id}/`,user,
             config)
 
 

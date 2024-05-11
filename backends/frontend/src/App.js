@@ -1,8 +1,8 @@
+import { HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import Footer from './Components/Footer';
 import Headers from './Components/Headers';
 import AboutUs from './screens/AboutUs';
 import HomeScreen from './screens/HomeScreen';
-import{ HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -25,12 +25,12 @@ function App() {
   /*const {colorTheme} = useSelector(state=>state.colorTheme)
   const { color,backgroundColor,navColor,navBackgound } = colorTheme
   */
- const theme = {
-    width:'100%',
-    minHeight:'99vh',
-    maxHeight:'1000vh',
-    backgroundColor:'#2c2c2c',
-    color:'white',
+  const theme = {
+    width: '100%',
+    minHeight: '99vh',
+    maxHeight: '1000vh',
+    backgroundColor: '#2c2c2c',
+    color: 'white',
 
   }
 
@@ -38,21 +38,18 @@ function App() {
   return (
     <div className="App" style={theme}>
       <Router history>
-{/*
-      <Headers clr={navColor} bclr={navBackgound}/>
-*/}
-      <Headers/>
+        <Headers />
         <Routes>
-          <Route path='' element={<HomeScreen />} exact/>
+          <Route path='' element={<HomeScreen />} exact />
           <Route path='/set' element={<SetTheme />} />
           <Route path='/login' element={<LoginScreen />} />
           <Route path='/payment' element={<PaymentScreen />} />
           <Route path='/register' element={<RegisterScreen />} />
           <Route path='/placeorder' element={<PlaceOrderScreen />} />
           <Route path='/about' Component={AboutUs} />
-          <Route path='/Product/:id' Component={ProductScreen}/>
-          <Route path='/Profile' Component={ProfileScreen}/>
-          <Route path='/Shipping' Component={ShippingScreen}/>
+          <Route path='/Product/:id' Component={ProductScreen} />
+          <Route path='/Profile' Component={ProfileScreen} />
+          <Route path='/Shipping' Component={ShippingScreen} />
           <Route path='/cart/:id?' Component={CartScreen} />
           <Route path='/order/:id' Component={OrderScreen} />
           <Route path='/admin/orderlist/' Component={OrderListScreen} />
@@ -61,6 +58,7 @@ function App() {
           <Route path='/admin/user/:id/edit' Component={UserEditScreen} />
           <Route path='/admin/product/:id/edit' Component={ProductEditScreen} />
         </Routes>
+        <Footer />
       </Router>
 
     </div>

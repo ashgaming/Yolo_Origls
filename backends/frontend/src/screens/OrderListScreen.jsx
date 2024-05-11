@@ -30,7 +30,7 @@ export default function OrderListScreen() {
 
     const deleteHandler = (id) => {
         if(window.confirm('Are you sure want to delete order')){
-           // dispatch(deleteUsers(id))
+          //  dispatch(deleteUsers(id))
         }
     }
 

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { logout } from '../Actions/userAction';
-//import { Link } from 'react-router-dom';
 import '../CSS/header.css'
 import SetTheme from './SetTheme';
 
@@ -69,7 +68,7 @@ export default function Headers({ clr, bclr }) {
                     <NavDropdown.Item>Users</NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer to='/admin/productlist' >
-                    <NavDropdown.Item> Products</NavDropdown.Item>
+                    <NavDropdown.Item>Products</NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer to='/admin/orderlist' >
                     <NavDropdown.Item>Orders</NavDropdown.Item>

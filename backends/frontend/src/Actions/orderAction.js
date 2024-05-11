@@ -9,6 +9,8 @@ import {
 } from '../Constants/orderConstants'
 import { CART_CLEAR_ITEMS } from '../Constants/CartConstants'
 import axios from 'axios'
+import { url } from '../Connections/connection'
+
 
 export const createOrder = (order) => async (dispatch, getState) => {
     try {
@@ -27,7 +29,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.post(`http://127.0.0.1:8000/api/orders/add/`, order,
+        const { data } = await axios.post(url+`/api/orders/add/`, order,
             config)
 
         dispatch({
@@ -69,7 +71,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.get(`http://127.0.0.1:8000/api/orders/${id}/`,
+        const { data } = await axios.get(url+`api/orders/${id}/`,
             config)
 
         dispatch({
@@ -106,7 +108,7 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.put(`http://127.0.0.1:8000/api/orders/${id}/pay/`, paymentResult,
+        const { data } = await axios.put(url+`api/orders/${id}/pay/`, paymentResult,
             config)
 
         dispatch({
@@ -145,7 +147,7 @@ export const listMyOrders = () => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.get(`http://127.0.0.1:8000/api/orders/myorders/`,
+        const { data } = await axios.get(url+`api/orders/myorders/`,
             config)
 
         dispatch({
@@ -182,7 +184,7 @@ export const listOrders = () => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.get(`http://127.0.0.1:8000/api/orders/`,
+        const { data } = await axios.get(url+`api/orders/`,
             config)
 
         dispatch({
@@ -220,7 +222,7 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.put(`http://127.0.0.1:8000/api/orders/${order._id}/deliver/`,{},
+        const { data } = await axios.put(url+`api/orders/${order._id}/deliver/`,{},
             config)
 
         dispatch({

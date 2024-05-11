@@ -4,10 +4,11 @@ import {
     CART_SAVE_SHIPPING_ADDRESS,
     CART_SAVE_PAYMENT_METHOD 
 } from "../Constants/CartConstants";
+import { url } from '../Connections/connection'
+
 
 export const addToCart = (id,qtyy) => async (dispatch,getState)=>{
-    const url = "http://127.0.0.1:8000/static"
-    const {data} = await axios.get(`http://127.0.0.1:8000/api/products/${id}`)
+    const {data} = await axios.get(url+`api/products/${id}`)
     const qty = parseInt(qtyy)
     dispatch({
         type:CART_ADD_ITEM,

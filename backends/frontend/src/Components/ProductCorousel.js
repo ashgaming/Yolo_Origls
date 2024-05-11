@@ -6,12 +6,13 @@ import { listTopProducts } from '../Actions/productActions'
 import Loader from './Loader';
 import Message from './Message';
 import '../CSS/courausel.css'
+import { url as src } from '../Connections/connection'
+
 
 export default function ProductCorousel() {
     const dispatch = useDispatch()
     const productTopRated = useSelector(state=>state.productTopRated)
     const {error ,loading,products}= productTopRated
-    const src="http://127.0.0.1:8000/static"
 
     useEffect(()=>{
         dispatch(listTopProducts())

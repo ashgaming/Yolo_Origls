@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-5wpq9q1(4urh)madx-b%l4u!#1+7i!wj76nwwfnupm5e6gw+!_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -135,8 +135,12 @@ WSGI_APPLICATION = 'backends.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'detroit_watch',
+      #  'NAME': 'detroitWatch',
+       # 'USER':'detroit',
+       # 'PASSWORD':'Wtya7645',
+       #'HOST':'detroit-watch.c1q2iuwwsp32.eu-north-1.rds.amazonaws.com',
         'USER':'postgres',
+        'NAME': 'detroit_watch',
         'PASSWORD':'Wtya@7645',
         'HOST':'localhost',
         'POST':'5432'

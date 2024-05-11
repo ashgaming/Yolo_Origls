@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom'
 import Rating from './Rating'
 import '../CSS/glowBtn.css'
 import '../CSS/Home.css'
+import { imgUrl as url } from '../Connections/connection'
+
 
 
 export default function Product({ product }) {
-    const url = "http://127.0.0.1:8000/static"
     const StarColor = {
         Color: 'black',
     }
@@ -26,13 +27,14 @@ export default function Product({ product }) {
                         <strong >{product.name}</strong>
                     </Card.Title>
                 </Link>
-
+{/** 
+ * 
                 <Card.Text as='div'>
-                    <div className='my-3'>
+                    <span className='my-3'>
                         <Rating clr={StarColor} value={product.rating} text={product.numReviews} />
-                        {/*product.rating} from {product.numReviews} Reviews*/}
-                    </div>
+                    </span>
                 </Card.Text>
+                    */}
                 <Card.Text as='h6'>
                     &#x20B9; {product.price}/-
                     <span className='sale-price-container'>

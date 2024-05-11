@@ -11,14 +11,13 @@ import { useNavigate } from 'react-router-dom';
 import { PRODUCT_UPDATE_RESET } from '../Constants/productConstants';
 import axios from 'axios';
 import Product from '../Components/Product';
+import { url,imgUrl as src } from '../Connections/connection'
+
 
 export default function ProductEditScreen() {
     const { id } = useParams()
     const Location = useLocation()
     const navigate = useNavigate()
-
-    const url = 'http://127.0.0.1:8000/';
-    const src = url + 'static';
 
     const [productPreview, setProductPreview] = useState('')
     const [pid, setId] = useState(id)

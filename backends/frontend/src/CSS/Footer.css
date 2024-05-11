@@ -1,9 +1,9 @@
 .FooterBack {
     animation: ChangeColor 5s infinite alternate;
     margin-top: 2vw;
-    position: fixed; /* or absolute */
+  /*  position: fixed; /* or absolute /
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%);*/
     bottom: 0;
     width: 100%;
 }

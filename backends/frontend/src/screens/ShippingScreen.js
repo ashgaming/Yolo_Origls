@@ -9,16 +9,14 @@ export default function ShippingScreen() {
     const history = useNavigate()
     const cart = useSelector(state => state.cart)
     const { shippingAddress } = cart
-
     const userDetails = useSelector(state => state.userDetails)
     const { user } = userDetails
+
     useEffect(() => {
-        if (!user) {
+        if (user=={}) {
             history('/login')
         }
     }, [user])
-
-
 
     const dispatch = useDispatch()
     const [addr, setAddr] = useState(shippingAddress.addr)

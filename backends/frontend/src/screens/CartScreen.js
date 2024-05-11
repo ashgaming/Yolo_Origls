@@ -13,17 +13,17 @@ export default function CartScreen() {
   const qty = searchParams.get('qty')
   const dispatch = useDispatch()
 
+  const cart = useSelector(state => state.cart)
+  const { cartItems } = cart
+
   useEffect(() => {
     if (id) {
       dispatch(addToCart(id, qty))
     }
-  }, [id, dispatch, qty])
+  }, [id, dispatch, qty,cart])
+  
   
 
-    const cart = useSelector(state => state.cart)
-    const { cartItems } = cart
-
-  
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id))
   }

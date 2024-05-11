@@ -9,9 +9,10 @@ import Loader from '../Components/Loader'
 import Message from '../Components/Message'
 import { addToCart } from '../Actions/cartAction'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../Constants/productConstants'
+import { imgUrl as url } from '../Connections/connection'
+
 
 export default function ProductScreen() {
-  //  const URL = "http://127.0.0.1:8000"
   const [qty, setQty] = useState(1)
   const [rating, setRating] = useState(0)
   const [comment, setCommant] = useState('')
@@ -63,7 +64,7 @@ export default function ProductScreen() {
               <div className='ProductScreen' style={{ padding: '50px' }}>
                 <Row >
                   <Col margin={'2px'}>
-                    {!loading && <Image src={"http://127.0.0.1:8000/static" + product.image} alt={product.name} style={{ Width: '10rem', height: '30rem', aspectRatio: '3/2', padding: '10px' }} fluid />}
+                    {!loading && <Image src={url + product.image} alt={product.name} style={{ Width: '10rem', height: '30rem', aspectRatio: '3/2', padding: '10px' }} fluid />}
                     <br />
                   </Col>
                   <Col md={5}>

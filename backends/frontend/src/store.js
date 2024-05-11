@@ -12,20 +12,23 @@ const shippingAddressFromStorage = localStorage.getItem('shippingAddress') ? JSO
 
 const paymentMethodFromStorage = localStorage.getItem('paymentMethod') ? JSON.parse(localStorage.getItem('paymentMethod')) : []
 const initialState = {
-    cart: { 
+    cart: {
         cartItems: cartItemsFromStorage,
-        shippingAddress:shippingAddressFromStorage,
-        paymentMethod:paymentMethodFromStorage,
+        shippingAddress: shippingAddressFromStorage,
+        paymentMethod: paymentMethodFromStorage,
     },
     userLogin: { userInfo: userInfoFromStorage }
 }
 
 const middleware = [thunk]
 
+/*
 const store = createStore(reducer, initialState,
-    composeWithDevTools(applyMiddleware(...middleware)))
-
-//const store = createStore(reducer, initialState,
-//    applyMiddleware(...middleware))
-
+    composeWithDevTools(applyMiddleware(...middleware),
+    ))
+    
+    */
+    const store = createStore(reducer, initialState,
+        applyMiddleware(...middleware))
+        
 export default store
