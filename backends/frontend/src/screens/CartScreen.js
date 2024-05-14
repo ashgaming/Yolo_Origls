@@ -31,10 +31,9 @@ export default function CartScreen() {
     history(`/shipping`)
   }
   return (
-    <Row>
+    <Row >
       <Col md={8}>
         <h1>Shopping Cart</h1>
-        <h2>{cartItems.length}</h2>
         {
           cartItems.length === 0 ? (
             <>
@@ -51,10 +50,10 @@ export default function CartScreen() {
                 {
                   cartItems.map(item => (
                     <ListGroup.Item key={item.product}>
-                      <Row>
+                     <Row>
                         <Col md={2}>
                           <Image src={item.Image} width={'100px'} height={'400px'} alt={item.product} fluid rounded />
-                        </Col>
+                        </Col>               
                         <Col md={3}>
                           <Link to={`/product/${item.product}`}>{item.name}</Link>
                         </Col>
@@ -82,7 +81,7 @@ export default function CartScreen() {
                             type='button'
                             variant='light'
                             onClick={(() => removeFromCartHandler(item.product))}
-                          >
+                            >
                             <i className='fas fa-trash'>Cancel</i>
                           </Button>
                         </Col>
@@ -93,8 +92,8 @@ export default function CartScreen() {
                 }
               </ListGroup>
             )
-        }
-      </Col>
+          }
+          </Col>
 
       <Col md={4}>
         <Card>
@@ -103,7 +102,7 @@ export default function CartScreen() {
               <h1>
                 SubTotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) Items
               </h1>
-              Rs{cartItems.reduce((acc, item) => acc + item.qty * item.price, 0)}
+              Rs {cartItems.reduce((acc, item) => acc + item.qty * item.price, 0)}
             </ListGroup.Item>
           </ListGroup>
           {

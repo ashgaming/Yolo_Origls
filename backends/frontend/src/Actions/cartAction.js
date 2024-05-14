@@ -4,7 +4,7 @@ import {
     CART_SAVE_SHIPPING_ADDRESS,
     CART_SAVE_PAYMENT_METHOD 
 } from "../Constants/CartConstants";
-import { url } from '../Connections/connection'
+import { imgUrl , url } from '../Connections/connection'
 
 
 export const addToCart = (id,qtyy) => async (dispatch,getState)=>{
@@ -15,7 +15,7 @@ export const addToCart = (id,qtyy) => async (dispatch,getState)=>{
         payload:{
             product:data._id,
             name:data.name,
-            Image:url + data.image,
+            Image:imgUrl + data.image,
             price:data.price,
             countInStock:data.countInStock,
             qty
