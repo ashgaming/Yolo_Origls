@@ -95,12 +95,15 @@ export default function ProductEditScreen() {
             countInStock: stock,
         }))
 
+        console.log(image , 'submittet')
+
     }
 
 
     const uploadFileHandler = async (e) => {
         setImage(e.target.files[0])
         const file = e.target.files[0]
+        console.log(file)
 
         const formData = new FormData()
         formData.append('image', file)
@@ -115,7 +118,8 @@ export default function ProductEditScreen() {
                 }
             }
             const { data } = await axios.post(url + 'api/products/upload/', formData, config)
-            setImage(data.image)
+            console.log(data.image.split('?')[0])
+            setImage(data.image.split('?')[0])
             setUploading(false)
         } catch (error) {
             setUploading(false)
@@ -157,7 +161,9 @@ export default function ProductEditScreen() {
                 }
             }
             const { data } = await axios.put(url + 'api/products/upload/previous/', formData,config)
-            setImage(data.image)
+            const imageUrl = data.image.split('?')[0]
+            console.log(imageUrl)
+            setImage(imageUrl)
             
         } catch (error) {
             alert(e)
@@ -270,10 +276,11 @@ export default function ProductEditScreen() {
                             {image !== null && (<Image
                                 width='100%'
                                 height='200px'
-                                src={src + image.toString()}
+                                src={image.toString()}
                                 alt={product.name}
                                 />)
                             }
+                            {console.log(image)}
                             <Form.Label>Enter image</Form.Label>
                             <Form.Group controlId='image'>
                             <Form.Control

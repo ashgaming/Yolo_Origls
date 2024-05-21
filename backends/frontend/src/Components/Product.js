@@ -18,7 +18,7 @@ export default function Product({ product }) {
 
         <Card className='my-1 p-3 rounded cardStyle'>
             <Link to={`/Product/${product._id}`}>
-                <Card.Img className='CardImg' src={url + product.image} alt={product.name} loading='lazy' />
+                <Card.Img className='CardImg' src={product.image_url} alt={product.name} loading='lazy' />
             </Link>
 
             <Card.Body>

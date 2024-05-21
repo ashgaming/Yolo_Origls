@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { logout } from '../Actions/userAction';
 import '../CSS/header.css'
-import SetTheme from './SetTheme';
+//import SetTheme from './SetTheme';
 
 export default function Headers({ clr, bclr }) {
   const userLogin = useSelector(state => state.userLogin)
@@ -16,36 +16,45 @@ export default function Headers({ clr, bclr }) {
 
   return (
     <header>
-      <Navbar bg={'dark'} data-bs-theme={'dark'}>
-        <Container>
-          <LinkContainer to='/'>
-            <Navbar.Brand >Detroit Watch</Navbar.Brand>
-          </LinkContainer>
-          <Navbar.Toggle aria-controls='basic-navbar-nav' />
-          <Navbar.Collapse id='basic-navbar-nav'>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <LinkContainer to='/'>
+          <Navbar.Brand className="navbar-brand brand-name" >Detroit Watch</Navbar.Brand>
+        </LinkContainer>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-            <Nav className="ml-auto">
-              <LinkContainer to='/'>
-                <Nav.Link>Home</Nav.Link>
-              </LinkContainer>
-
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item">
               <LinkContainer to='/cart'>
                 <Nav.Link>Cart</Nav.Link>
               </LinkContainer>
-
+            </li>
+            <li className="nav-item">
               <LinkContainer to='/about'>
                 <Nav.Link>About Us</Nav.Link>
               </LinkContainer>
+            </li>
 
-{/**
-              <LinkContainer to='/set'>
-                <Nav.Link>Setting</Nav.Link>
-              </LinkContainer>
+            {userInfo && userInfo.isAdmin && (
+              <li>
+              <NavDropdown title={'Admin'} id='adminMenu' className='bg-dark text-white'>
+                <LinkContainer to='/admin/userlist' >
+                  <NavDropdown.Item className='bg-dark text-white'>Users</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to='/admin/productlist' >
+                  <NavDropdown.Item className='bg-dark text-white'>Products</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to='/admin/orderlist' >
+                  <NavDropdown.Item className='bg-dark text-white'>Orders</NavDropdown.Item>
+                </LinkContainer>
+              </NavDropdown>
+              </li>
+            )
+          }
 
-              <Nav.Item>
-                <SetTheme />
-              </Nav.Item>
-            */}
+            <li className='login-link'>
 
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
@@ -61,26 +70,10 @@ export default function Headers({ clr, bclr }) {
                   </LinkContainer>
                 )
               }
-
-              {userInfo && userInfo.isAdmin && (
-                <NavDropdown title={'Admin'} id='adminMenu'>
-                  <LinkContainer to='/admin/userlist' >
-                    <NavDropdown.Item>Users</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to='/admin/productlist' >
-                    <NavDropdown.Item>Products</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to='/admin/orderlist' >
-                    <NavDropdown.Item>Orders</NavDropdown.Item>
-                  </LinkContainer>
-                </NavDropdown>
-              )
-              }
-            </Nav>
-          </Navbar.Collapse>
-
-        </Container>
-      </Navbar>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </header>
   )
 }

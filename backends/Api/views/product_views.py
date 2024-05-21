@@ -23,13 +23,9 @@ def getProducts(request):
     query = request.query_params.get('keyword')
     if query==None:
         query=''
-    
- #   products = Product.objects.all()
-   # products = Product.objects.filter(name__icontains=query)
     products = Product.objects.filter(Q(name__icontains=query) | Q(category__icontains=query) | Q(brand__icontains=query))
 
     products = products.annotate(random_order=functions.Random()).order_by('random_order')
-
     page = request.query_params.get('page')
     paginator = Paginator(products,12)
 
@@ -42,10 +38,7 @@ def getProducts(request):
     
     if(page ==None):
         page=1
-
     page=int(page)
-        
-
     serializer = ProductSerializer(products,many=True)
     return Response({'products':serializer.data,'page':page,'pages':paginator.num_pages})
 
@@ -53,6 +46,7 @@ def getProducts(request):
 def getTopProducts(request):
     products = Product.objects.filter(rating__gte=1).order_by('-rating')[0:5]
     serializer = ProductSerializer(products,many=True)
+    print(serializer.data)
     return Response(serializer.data)
 
 
@@ -61,7 +55,6 @@ def getTopProducts(request):
 def createProduct(request):
     user = request.user
     data=request.data
-    print(data)
     product = Product.objects.create(
         user=user,
         name='name',
@@ -74,14 +67,15 @@ def createProduct(request):
         shortDescription='shortDescription',
         rating='0'
     )
+
     serializer = ProductSerializer(product,many=False)
+    print(serializer.data)
     return Response(serializer.data)
 
 @api_view(['PUT'])
 @permission_classes([IsAdminUser])
 def updateProduct(request,pk):
     data = request.data
-    print(data)
     product = Product.objects.get(_id=pk)
     product.lastImage = product.image
     product.name = data['name']
@@ -92,7 +86,7 @@ def updateProduct(request,pk):
     product.category = data['category']
     product.description = data['description']
     product.shortDescription = data['shortDescription']
-    product.image = data['image'][7:]
+    product.image = data['image']
     product.galary = data['galary']
 
     product.save()
@@ -102,7 +96,6 @@ def updateProduct(request,pk):
 @api_view(['PUT','POST'])
 def setPreviewImage(request):
     data = request.data
-    print('data',data)
     product_id = data['product_id']
     product = Product.objects.get(_id=product_id)
     if product.lastImage:
@@ -127,7 +120,6 @@ def uploadImage(request):
 
     product_id = data['product_id']
     product = Product.objects.get(_id=product_id)
-
     product.lastImage = product.image
     product.image = request.FILES.get('image')
     product.save()

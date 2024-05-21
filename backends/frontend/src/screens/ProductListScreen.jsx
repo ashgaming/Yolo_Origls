@@ -9,7 +9,7 @@ import '../CSS/userlist.css'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { PRODUCT_CREATE_RESET } from '../Constants/productConstants';
 import Paginate from '../Components/Paginate';
-import { imgUrl as src } from '../Connections/connection'
+//import { imgUrl as src } from '../Connections/connection'
 
 
 export default function ProductListScreen() {
@@ -89,7 +89,7 @@ export default function ProductListScreen() {
                                 </thead>
                                 <tbody>
                                     {products.map((product, index) => (
-
+                                        
                                         <tr key={product._id} >
                                             <td>{index + 1}</td>
                                             <td>41435{product._id}</td>
@@ -97,11 +97,12 @@ export default function ProductListScreen() {
                                                 <img
                                                     height={'40px'}
                                                     width={'40px'}
-                                                    src={src + product.image}
+                                                    src={product.image_url}
                                                     alt={product.name}
                                                 />
                                             </td>
 
+                                            {console.log(product.image_url)}
 
                                             <td>{product.name}</td>
                                             <td>{product.price}</td>

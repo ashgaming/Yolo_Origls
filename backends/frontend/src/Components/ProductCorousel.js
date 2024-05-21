@@ -26,7 +26,7 @@ export default function ProductCorousel() {
                 <Carousel.Item key={product._id}>
                     <Link to={`/product/${product._id}`}>
                         <div className='couraosel-product-container'>
-                        <Image className='co_image' src={src+product.image} alt={product.name} fluid loading='lazy'/>
+                        <Image className='co_image' src={product.image_url} alt={product.name} fluid loading='lazy'/>
                         </div>
                         <Carousel.Caption classname='carousel.caption heading'>
                             <h4 className='heading_name'>{product.name}</h4> 

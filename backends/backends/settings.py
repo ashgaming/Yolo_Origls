@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'Api.apps.BaseConfig',
     "corsheaders",
+    'storages'
 ]
 
 REST_FRAMEWORK = { 
@@ -135,14 +136,14 @@ WSGI_APPLICATION = 'backends.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-      #  'NAME': 'detroitWatch',
-       # 'USER':'detroit',
-       # 'PASSWORD':'Wtya7645',
-       #'HOST':'detroit-watch.c1q2iuwwsp32.eu-north-1.rds.amazonaws.com',
-        'USER':'postgres',
-        'NAME': 'detroit_watch',
-        'PASSWORD':'Wtya@7645',
-        'HOST':'localhost',
+        'NAME': 'detroitWatch',
+        'USER':'detroit',
+        'PASSWORD':'Wtya7645',
+        'HOST':'detroit-watch.c1q2iuwwsp32.eu-north-1.rds.amazonaws.com',
+      # 'USER':'postgres',
+      # 'NAME': 'detroit_watch',
+      # 'PASSWORD':'Wtya@7645',
+      # 'HOST':'localhost',
         'POST':'5432'
     }
 }
@@ -193,6 +194,11 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = 'backends/static/images'
 
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+#DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+#DEFAULT_FILE_STORAGE = "storages.backends.s3.Storage"
+AWS_ACCESS_KEY_ID = 'AKIA47CRWIQAZAL47HA4'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'detroit-watch'
 
 

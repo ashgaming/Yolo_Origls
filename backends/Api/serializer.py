@@ -52,19 +52,44 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     reviews = serializers.SerializerMethodField(read_only=True)
+    image_url = serializers.SerializerMethodField()
     class Meta:
         model = Product
         fields = '__all__'
+      #  fields = ['_id','image','reviews','image_url']
 
     def get_reviews(self,obj):
         reviews = obj.review_set.all()
         serializer = ReviewSerializer(reviews,many=True)
         return serializer.data
+    
+    def get_image_url(self,obj):
+        if obj.image:
+            url = obj.image.url.split('?')[0]
+            url_parts = url.split('/https%3A/detroit-watch.s3.eu-north-1.amazonaws.com')
+            if len(url_parts) > 1:
+                url = url_parts[0] + url_parts[1]
+            else:
+                url = url_parts[0]
+            return url
+        return 'https://detroit-watch.s3.eu-north-1.amazonaws.com/placeholder.jpg'
 
 class ProductImageSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
     class Meta:
         model = Product
-        fields = ['_id','image']
+        fields = ['_id','image','image_url']
+
+    def get_image_url(self,obj):
+        if obj.image:
+            url = obj.image.url.split('?')[0]
+            url_parts = url.split('/https%3A/detroit-watch.s3.eu-north-1.amazonaws.com')
+            if len(url_parts) > 1:
+                url = url_parts[0] + url_parts[1]
+            else:
+                url = url_parts[0]
+            return url
+        return 'https://detroit-watch.s3.eu-north-1.amazonaws.com/placeholder.jpg'
 
 class ShippingAddressSerializer(serializers.ModelSerializer):
     class Meta:
@@ -100,3 +125,6 @@ class OrderSerializer(serializers.ModelSerializer):
         user = obj.user
         serializers = UserSerializer(user,many=False)
         return serializers.data
+
+
+

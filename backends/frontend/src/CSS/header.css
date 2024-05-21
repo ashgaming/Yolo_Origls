@@ -1,7 +1,19 @@
-.headersposition{
-    position: fixed; /* or absolute */
+.headersposition {
+    position: fixed;
+    /* or absolute */
     left: 0;
     width: 100%;
     z-index: 100;
-    top:0;
+    top: 0;
+}
+li{
+    padding-left: 20px;
+}
+
+.login-link{
+
+}
+
+.brand-name{
+    padding-left: 20px;
 }

@@ -9,8 +9,6 @@ import Loader from '../Components/Loader'
 import Message from '../Components/Message'
 import { addToCart } from '../Actions/cartAction'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../Constants/productConstants'
-import { imgUrl as url } from '../Connections/connection'
-
 
 export default function ProductScreen() {
   const [qty, setQty] = useState(1)
@@ -57,14 +55,13 @@ export default function ProductScreen() {
         loading ? <Loader />
           : error ? (<Message varient="danger" text={error}></Message>) : (
             <>
-
               <Link to='/'>
                 <button className='btn btn-light my-3'>Go Back</button>
               </Link>
               <div className='ProductScreen' style={{ padding: '50px' }}>
                 <Row >
                   <Col margin={'2px'}>
-                    {!loading && <Image src={url + product.image} alt={product.name} style={{ Width: '10rem', height: '30rem', aspectRatio: '3/2', padding: '10px' }} fluid />}
+                    {!loading && <Image src={product.image_url} alt={product.name} style={{ width: '40rem', height: '40rem', aspectRatio: '3/2', padding: '10px' }} loading='lazy' fluid />}
                     <br />
                   </Col>
                   <Col md={5}>
@@ -162,7 +159,7 @@ export default function ProductScreen() {
                   </Col>
                   <Row>
                     <h1>Product Galary</h1>
-                    {!loading && <Image src={"http://127.0.0.1:8000/static" + product.galary} alt={product.name} style={{ maxWidth: '15rem', maxHeight: '15rem', aspectRatio: '3/2' }} fluid />}
+                    {!loading && <Image src={product.image} alt={product.name} style={{ maxWidth: '15rem', maxHeight: '15rem', aspectRatio: '3/2' }} fluid />}
                   </Row>
                   <Row >
                     <Col md={12} xl={12} lg={12} padding={'10px'}>
