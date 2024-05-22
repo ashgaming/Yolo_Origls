@@ -24,8 +24,8 @@ export default function Headers({ clr, bclr }) {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
+        <div className="collapse navbar-collapse container-div" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto container-div">
             <li className="nav-item">
               <LinkContainer to='/cart'>
                 <Nav.Link>Cart</Nav.Link>
@@ -55,7 +55,6 @@ export default function Headers({ clr, bclr }) {
           }
 
             <li className='login-link'>
-
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
                   <LinkContainer to='/profile' >

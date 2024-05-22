@@ -6,12 +6,16 @@
     z-index: 100;
     top: 0;
 }
-li{
-    padding-left: 20px;
+
+li.login-link{
+    padding: auto;
+    float : right;
+    
 }
 
-.login-link{
 
+.container-div{
+    width: 100%;
 }
 
 .brand-name{
