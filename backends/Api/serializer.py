@@ -56,7 +56,6 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
-      #  fields = ['_id','image','reviews','image_url']
 
     def get_reviews(self,obj):
         reviews = obj.review_set.all()

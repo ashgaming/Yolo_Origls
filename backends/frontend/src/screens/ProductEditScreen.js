@@ -194,11 +194,6 @@ export default function ProductEditScreen() {
                             ></Form.Control>
                         </Form.Group>
 
-                        {uploading && <Loader />}
-
-
-
-
                         <Form.Group controlId='description'>
                             <Form.Label>Description</Form.Label>
                             <Form.Control
@@ -273,6 +268,8 @@ export default function ProductEditScreen() {
                         </Form.Group>
 
                         <br />
+                        {uploading ? <Loader /> :
+                        <>
                             {image !== null && (<Image
                                 width='100%'
                                 height='200px'
@@ -280,8 +277,9 @@ export default function ProductEditScreen() {
                                 alt={product.name}
                                 />)
                             }
-                            {console.log(image)}
-                            <Form.Label>Enter image</Form.Label>
+                            </>
+                        }
+                        <Form.Label>Enter image</Form.Label>
                             <Form.Group controlId='image'>
                             <Form.Control
                                 type='file'
