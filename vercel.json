@@ -1,20 +1,24 @@
 {
-    "rewrites": [ {"source": "/(.*)", "destination": "/"} ] ,
-    "builds":[
+    "rewrites": [
         {
-            "src":"backends/wsgi.py",
-            "use":"@vercel/python",
-            "config":{
-                "maxLambdaSize":"15mb",
-                "runtime":"python3.11"
+            "source": "/(.*)",
+            "destination": "/"
+        }
+    ],
+    "builds": [
+        {
+            "src": "backends/wsgi.py",
+            "use": "@vercel/python",
+            "config": {
+                "maxLambdaSize": "15mb",
+                "runtime": "python3.11"
             }
         }
     ],
-   
-    "routes":[
+    "routes": [
         {
-            "src":"/(.*)",
-            "dest":"backends/backends/wsgi.py"
+            "src": "/(.*)",
+            "dest": "backends/backends/wsgi.py"
         }
     ]
 }
