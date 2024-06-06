@@ -1,5 +1,15 @@
 {
     "rewrites": [ {"source": "/(.*)", "destination": "/"} ] ,
+    "builds":[
+        {
+            "src":"backends/wsgi.py",
+            "use":"@vercel/python",
+            "congig":{
+                "maxLambdaSize":"15mb",
+                "runtime":"python3.11"
+            }
+        }
+    ],
    
     "routes":[
         {
