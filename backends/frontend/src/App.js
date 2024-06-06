@@ -30,7 +30,7 @@ function App() {
     minHeight: '99vh',
     maxHeight: '1000vh',
     backgroundColor: '#2c2c2c',
-    color: 'white',
+    color: 'red',
 
   }
 
