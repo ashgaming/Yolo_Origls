@@ -4,7 +4,7 @@
         {
             "src":"backends/wsgi.py",
             "use":"@vercel/python",
-            "congig":{
+            "config":{
                 "maxLambdaSize":"15mb",
                 "runtime":"python3.11"
             }
