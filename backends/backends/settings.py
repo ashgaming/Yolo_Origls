@@ -11,20 +11,24 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
+import os
+import environ
+from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv()
+env = environ.Env()
+environ.Env.read_env()
 
-import os
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5wpq9q1(4urh)madx-b%l4u!#1+7i!wj76nwwfnupm5e6gw+!_'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG',default=False)
 
 ALLOWED_HOSTS = ['127.0.0.1','.vercel.app']
 
@@ -59,7 +63,7 @@ SIMPLE_JWT = {
     "BLACKLIST_AFTER_ROTATION": False,
     "UPDATE_LAST_LOGIN": False,
 
-    "ALGORITHM": "HS256",
+    "ALGORITHM": os.environ.get('ALGORITHM'),
     "VERIFYING_KEY": "",
     "AUDIENCE": None,
     "ISSUER": None,
@@ -92,7 +96,6 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     "corsheaders.middleware.CorsMiddleware",
@@ -104,7 +107,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    env('frontend'),
 ]
 
 ROOT_URLCONF = 'backends.urls'
@@ -136,15 +139,11 @@ WSGI_APPLICATION = 'backends.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'detroitWatch',
-        'USER':'detroit',
-        'PASSWORD':'Wtya7645',
-        'HOST':'detroit-watch.c1q2iuwwsp32.eu-north-1.rds.amazonaws.com',
-      # 'USER':'postgres',
-      # 'NAME': 'detroit_watch',
-      # 'PASSWORD':'Wtya@7645',
-      # 'HOST':'localhost',
-        'POST':'5432'
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER':os.environ.get('DATABASE_USER'),
+        'PASSWORD':os.environ.get('DATABASE_PASSWORD'),
+        'HOST':os.environ.get('DATABASE_HOST'),
+        'POST':os.environ.get('DATABASE_PORT')
     }
 }
 
@@ -195,11 +194,10 @@ MEDIA_ROOT = 'backends/static/images'
 
 
 #DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-#DEFAULT_FILE_STORAGE = "storages.backends.s3.Storage"
-AWS_QUERYSTRING_AUTH = False
-AWS_ACCESS_KEY_ID = 'AKIA47CRWIQAZAL47HA4'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'detroit-watch'
+DEFAULT_FILE_STORAGE = os.environ.get('DEFAULT_FILE_STORAGE')
+AWS_QUERYSTRING_AUTH = os.environ.get('AWS_QUERYSTRING_AUTH ')
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
 
